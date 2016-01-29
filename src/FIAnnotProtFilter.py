@@ -43,11 +43,10 @@ for gene in annot_gene_list:
  if gene_tup[0] in Pdb_dict and
     gene_tup[1] in Pdb_dict]
 
-
 out_fptr = open("../data/output/FIAnnotProt.txt",'w+')
 [out_fptr.write("{0},{1},{2},{3}\n".format(item[0],
                                            item[1],
                                            item[2],
                                            item[3]))
- for item in AnnotProt_list]
+ for item in sorted(AnnotProt_list)]
 out_fptr.close()
