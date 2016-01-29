@@ -35,12 +35,19 @@ for gene in annot_gene_list:
         # ignore genes without PDB's
         pass
 
-for gene_tup in FI_set:
-    if gene_tup[0] in Pdb_dict and gene_tup[1] in Pdb_dict:
-        AnnotProt_list.append((gene_tup[0], Pdb_dict[gene_tup[0]], gene_tup[1], Pdb_dict[gene_tup[1]]))
+[AnnotProt_list.append((gene_tup[0],
+                        Pdb_dict[gene_tup[0]],
+                        gene_tup[1],
+                        Pdb_dict[gene_tup[1]]))
+ for gene_tup in FI_set
+ if gene_tup[0] in Pdb_dict and
+    gene_tup[1] in Pdb_dict]
+
 
 out_fptr = open("../data/output/FIAnnotProt.txt",'w+')
-for item in AnnotProt_list:
-    line = "{0},{1},{2},{3}\n".format(item[0], item[1], item[2], item[3])
-    out_fptr.write(line)
+[out_fptr.write("{0},{1},{2},{3}\n".format(item[0],
+                                           item[1],
+                                           item[2],
+                                           item[3]))
+ for item in AnnotProt_list]
 out_fptr.close()
