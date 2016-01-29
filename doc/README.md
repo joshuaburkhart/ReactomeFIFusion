@@ -62,10 +62,10 @@ http://www.ebi.ac.uk/msd-srv/capri/round30/CAPRI_R30_v20141224.SW.pdf
 
 ### Python Libraries / APIs
 
-http://bmcstructbiol.biomedcentral.com/articles/10.1186/1472-6807-9-27
-http://www.pyrosetta.org/
-https://downloads.ccdc.cam.ac.uk/documentation/API/modules/docking_api.html
-http://structure.bu.edu/content/protein-protein-docking
+http://bmcstructbiol.biomedcentral.com/articles/10.1186/1472-6807-9-27  
+http://www.pyrosetta.org/  
+https://downloads.ccdc.cam.ac.uk/documentation/API/modules/docking_api.html  
+http://structure.bu.edu/content/protein-protein-docking  
 http://tools.iedb.org/main/bcell/modeling-docking/
 
 ### ClusPro Webserver
