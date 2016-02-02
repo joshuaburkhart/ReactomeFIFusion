@@ -60,13 +60,13 @@ If no PDB exists and time allows, get swiss-prot and use phyre2 webserver. PDB F
 
 ### Query Interactome3D Database for Known Interactions & Complexes
 
-http://interactome3d.irbbarcelona.org/help.php#restful
-http://interactome3d.irbbarcelona.org/help.php#interactions_dat_file
-https://docs.python.org/3/library/xml.etree.elementtree.html
+http://interactome3d.irbbarcelona.org/help.php#restful  
+http://interactome3d.irbbarcelona.org/help.php#interactions_dat_file  
+https://docs.python.org/3/library/xml.etree.elementtree.html  
 
 ### Use a Modelling Program, like IMP to Assess Putative Interactions & Complexes
 
-https://integrativemodeling.org/
+https://integrativemodeling.org/  
 
 ### Other Python Libraries & APIs
 
