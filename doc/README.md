@@ -50,7 +50,7 @@ Python script produces 72000+ rows.
 
 Many genes have several PDB's, how can we prioritize them?
 
-## Missing Data
+### Missing Data
 
 http://www.sbg.bio.ic.ac.uk/phyre2/webscripts/dbmapper.cgi
 
@@ -58,9 +58,17 @@ If no PDB exists and time allows, get swiss-prot and use phyre2 webserver. PDB F
 
 ## PPI
 
-http://www.ebi.ac.uk/msd-srv/capri/round30/CAPRI_R30_v20141224.SW.pdf
+### Query Interactome3D Database for Known Interactions & Complexes
 
-### Python Libraries / APIs
+http://interactome3d.irbbarcelona.org/help.php#restful
+http://interactome3d.irbbarcelona.org/help.php#interactions_dat_file
+https://docs.python.org/3/library/xml.etree.elementtree.html
+
+### Use a Modelling Program, like IMP to Assess Putative Interactions & Complexes
+
+https://integrativemodeling.org/
+
+### Other Python Libraries & APIs
 
 http://bmcstructbiol.biomedcentral.com/articles/10.1186/1472-6807-9-27  
 http://www.pyrosetta.org/  
