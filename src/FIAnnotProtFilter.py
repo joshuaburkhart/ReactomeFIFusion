@@ -98,52 +98,56 @@ except_count = 0
 loop_count = 0
 loop_len = len(AnnotPdb_list)
 out_fptr = open("../data/output/FIInteract.txt", 'w+')
-for line in AnnotPdb_list:
-    loop_count += 1
-    gene1 = line[0]
-    unip1 = Uni_dict[line[0]]
-    gene2 = line[2]
-    unip2 = Uni_dict[line[2]]
-
-    query_data = {}
-    query_data['queryProt1'] = unip1
-    query_data['queryProt2'] = unip2
-
-    url_values = urllib.parse.urlencode(query_data)
-
-    url = 'http://interactome3d.irbbarcelona.org/api/getInteractionStructures'
-    full_url = '{0}?{1}'.format(url, url_values)
-
-    print("Querying interaction between {0} and {1} ({2} of {3})...".format(
-        gene1,
-        gene2,
-        loop_count,
-        loop_len
-    ))
-
+for line in sorted(AnnotPdb_list):
     try:
-        with urllib.request.urlopen(full_url) as response:
-            html = response.read()
+        loop_count += 1
+        gene1 = line[0]
+        unip1 = Uni_dict[line[0]]
+        gene2 = line[2]
+        unip2 = Uni_dict[line[2]]
 
-        xmlTree = xml.etree.ElementTree.fromstring(html)
-        if len(xmlTree.getchildren()[0].getchildren()) > 0:
-            intr_msg = 'Interaction Reported by Interactome3D,{0}'.format(
-                full_url
-            )
-            intr_count += 1
-        else:
-            intr_msg = 'No Interaction Reported by Interactome3D,'
-            non_intr_count += 1
-    except Exception as e:
-        intr_msg = 'Exception Raised: {0},'.format(e)
-        except_count += 1
-    out_fptr.write("{0},{1},{2},{3},{4}\n".format(
-        gene1,
-        unip1,
-        gene2,
-        unip2,
-        intr_msg
-    ))
+        query_data = {}
+        query_data['queryProt1'] = unip1
+        query_data['queryProt2'] = unip2
+
+        url_values = urllib.parse.urlencode(query_data)
+
+        url = 'http://interactome3d.irbbarcelona.org/api/getInteractionStructures'
+        full_url = '{0}?{1}'.format(url, url_values)
+
+        print("Querying interaction between {0} and {1} ({2} of {3})...".format(
+            gene1,
+            gene2,
+            loop_count,
+            loop_len
+        ))
+
+        try:
+            with urllib.request.urlopen(full_url) as response:
+                html = response.read()
+
+            xmlTree = xml.etree.ElementTree.fromstring(html)
+            if len(xmlTree.getchildren()[0].getchildren()) > 0:
+                intr_msg = 'Interaction Reported by Interactome3D,{0}'.format(
+                    full_url
+                )
+                intr_count += 1
+            else:
+                intr_msg = 'No Interaction Reported by Interactome3D,'
+                non_intr_count += 1
+        except Exception as e:
+            intr_msg = 'Exception Raised: {0},'.format(e)
+            except_count += 1
+        out_fptr.write("{0},{1},{2},{3},{4}\n".format(
+            gene1,
+            unip1,
+            gene2,
+            unip2,
+            intr_msg
+        ))
+    except KeyError:
+        # Ignore genes w/o PDB's & Swiss-Prots
+        pass
 out_fptr.close()
 print('Interaction Count: {0}\n' \
       'Non Interaction Count: {1}\n' \
