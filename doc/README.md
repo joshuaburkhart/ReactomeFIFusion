@@ -67,6 +67,31 @@ https://docs.python.org/3/library/xml.etree.elementtree.html
 ### Use a Modelling Program, like IMP to Assess Putative Interactions & Complexes
 
 https://integrativemodeling.org/  
+review http://www.cgl.ucsf.edu/chimera/
+gather data from experimental & theoretical databases
+
+    Experimental techniques, such as:
+        X-ray crystallography
+        nuclear magnetic resonance (NMR) spectroscopy (CSP, NOE, J-couplings)
+        electron microscopy (EM) (2D class averages or 3D maps)
+        footprinting
+        Immunoprecipitation pull-down
+        Cysteine cross-linking
+        Chemical cross-linking
+        FRET spectroscopy
+        small angle X-ray scattering (SAXS)
+        proteomics
+    Theoretical sources of information, such as:
+        template structures used in comparative/homology modeling
+        scoring functions used in molecular docking
+        statistical preferences
+        physics-based energy functions
+
+PDBe (Cryo EM) API
+http://www.ebi.ac.uk/pdbe/pdbe-rest-api
+
+Store entry information & rank interactions based on information available
+Begin IMP analysis in order of most information -> least
 
 ### Other Python Libraries & APIs
 
