@@ -66,6 +66,9 @@ https://docs.python.org/3/library/xml.etree.elementtree.html
 
 ### Use a Modelling Program, like IMP to Assess Putative Interactions & Complexes
 
+
+####IMP
+
 https://integrativemodeling.org/  
 review http://www.cgl.ucsf.edu/chimera/
 gather data from experimental & theoretical databases
@@ -92,6 +95,32 @@ http://www.ebi.ac.uk/pdbe/pdbe-rest-api
 
 Store entry information & rank interactions based on information available
 Begin IMP analysis in order of most information -> least
+
+
+####ZDOCK
+
+Example:
+mark_sur receptor.pdb receptor_m.pdb
+mark_sur ligand.pdb ligand_m.pdb
+zdock -R receptor_m.pdb -L ligand_m.pdb -o zdock.out
+create.pl zdock.out
+
+Please note: The file uniCHARMM should be in the current directory when
+executing mark_sur. Also, receptor_m.pdb, ligand_m.pdb and create_lig must
+be in your current directory when you create all predicted structures
+using create.pl.
+
+Standard PDB format files must be processed by mark_sur before being used as
+the input to ZDOCK. Formatted PDB files of docking benchmark can be downloaded
+at http://zlab.umassmed.edu/benchmark. If you know that some atoms
+are not in the binding site, you can block them by changing their ACE type
+(column 55-56) to 19. This blocking procedure can improve docking
+performance significantly. A blocking script block.pl is included, type
+"block.pl" for usage information.
+
+####BUDE
+
+http://www.bris.ac.uk/biochemistry/research/bude
 
 ### Other Python Libraries & APIs
 
