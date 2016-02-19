@@ -99,11 +99,14 @@ Begin IMP analysis in order of most information -> least
 
 ####ZDOCK
 
-Example:
-mark_sur receptor.pdb receptor_m.pdb
-mark_sur ligand.pdb ligand_m.pdb
-zdock -R receptor_m.pdb -L ligand_m.pdb -o zdock.out
-create.pl zdock.out
+Example:  
+
+```
+mark_sur receptor.pdb receptor_m.pdb  
+mark_sur ligand.pdb ligand_m.pdb  
+zdock -R receptor_m.pdb -L ligand_m.pdb -o zdock.out  
+create.pl zdock.out  
+```
 
 Please note: The file uniCHARMM should be in the current directory when
 executing mark_sur. Also, receptor_m.pdb, ligand_m.pdb and create_lig must
