@@ -3,7 +3,6 @@ import re
 import itertools
 from glob import glob
 from ftplib import FTP
-import gzip
 
 PDB_CAPTURE = "^.+?," \
               "(?P<pdb1>[A-Z]+[0-9A-Z]+)," \
@@ -28,12 +27,21 @@ ZDOCK_SCORE_CAPTURE = "^(-?[0-9]+.)?[0-9]*\t" \
                       "(-?[0-9]+.)?[0-9]*\t" \
                       "(?P<zdock_score>.*)"
 
+ZDOCK_SCORE_FN = "../data/output/FIZdockScores.txt"
+ANNOT_PDB_FN = "../data/input/FIAnnotPdb.txt"
+ZDOCK_OUT_FN = "../data/input/zdock.out"
+FIINT_FN = "../data/input/FIInteract.txt"
+
+MARK_SUR = "/home/burkhart/zdock3.0.2_linux_x64/mark_sur"
+ZDOCK = "/home/burkhart/zdock3.0.2_linux_x64/zdock"
+
 prev_comp_pdb_set = set()
 gene_pdb_dictionary = dict()
 fi_no_interactome_set = set()
 
 
 def string2list(s):
+    print("string2list...")
     return s.replace('[', '') \
         .replace('\'', '') \
         .replace(',', '') \
@@ -42,6 +50,7 @@ def string2list(s):
 
 
 def download_pdb(pdb_id, download_dir):
+    print("download_pdb...")
     out_file = '{0}/{1}.pdb.gz'.format(download_dir, pdb_id)
 
     # see http://www.rcsb.org/pdb/static.do?p=download/ftp/index.html
@@ -51,21 +60,21 @@ def download_pdb(pdb_id, download_dir):
     pdb_ftp.retrbinary('RETR pdb{0}.ent.gz'.format(pdb_id.tolower()),
                        open(out_file, 'wb').write)
     pdb_ftp.quit()
-    os.system("gunzip {0}".format)
+    os.system("gunzip {0}".format(out_file))
 
 
 def zdock(pdb_receptor, pdb_ligand):
-    os.system("mark_sur ../data/input/{0}.pdb ../data/input/{0}_m.pdb".format(pdb_receptor))
-    os.system("mark_sur ../data/input/{0}.pdb ../data/input/{0}_m.pdb".format(pdb_ligand))
-    os.system(
-        "zdock -R ../data/input/{0}_m.pdb -L ../data/input/{1}_m.pdb -o ../data/input/zdock.out".format(pdb_receptor,
-                                                                                                        pdb_ligand))
+    print("zdock...")
+    os.system(MARK_SUR + " " + "../data/input/{0}.pdb ../data/input/{0}_m.pdb".format(pdb_receptor))
+    os.system(MARK_SUR + " " + "../data/input/{0}.pdb ../data/input/{0}_m.pdb".format(pdb_ligand))
+    os.system(ZDOCK + " " + "-R ../data/input/{0}_m.pdb "
+                            "-L ../data/input/{1}_m.pdb -o {2}".format(pdb_receptor, pdb_ligand,ZDOCK_OUT_FN))
 
 
-# read data/output/FIZdockScores (if it exists)
-fi_zdock_scores_path = "../data/input/FIZdockScores.txt"
-if os.path.isfile(fi_zdock_scores_path):
-    in_fptr = open(fi_zdock_scores_path)
+# read ZDOCK_SCORE_FN (if it exists)
+if os.path.isfile(ZDOCK_SCORE_FN):
+    print("read ZDOCK_SCORE_FN...")
+    in_fptr = open(ZDOCK_SCORE_FN)
     while 1:
         line = in_fptr.readline()
         if not line:
@@ -78,8 +87,9 @@ if os.path.isfile(fi_zdock_scores_path):
     # close file
     in_fptr.close()
 
-# open data/output/FIAnnotPdb.txt file
-in_fptr = open("../data/input/FIAnnotPdb.txt")
+# open ANNOT_PDB_FN file
+in_fptr = open(ANNOT_PDB_FN)
+print("read ANNOT_PDB_FN...")
 while 1:
     line = in_fptr.readline()
     if not line:
@@ -92,8 +102,9 @@ while 1:
 # close file
 in_fptr.close()
 
-# open data/output/FIInteract.txt file
-in_fptr = open("../data/input/FIInteract.txt")
+# open FIINT_FN file
+in_fptr = open(FIINT_FN)
+print("read FIINT_FN...")
 while 1:
     line = in_fptr.readline()
     if not line:
@@ -108,18 +119,21 @@ while 1:
 # close file
 in_fptr.close()
 
-# write data/output/FIZdockScores.txt header: genes, pdbs, top zscore, number of complexes with top score
-with open("../data/ouput/FIZdockScores.txt", 'w') as out_fptr:
+# write ZDOCK_SCORE_FN header: genes, pdbs, top zscore, number of complexes with top score
+print("write ZDOCK_SCORE_FN header...")
+with open(ZDOCK_SCORE_FN, 'w') as out_fptr:
     out_fptr.write("gene1,pdb_receptor,gene2,pdb_ligand,zdock_score,num_complexes\n")
 
-# for stored FIInteract.txt rows
+# for stored FIINT_FN rows
 for interaction in fi_no_interactome_set:
+    print("for interaction...")
     # for each pair of pdbs (some genes have more than 1) not previously computed
     gene1 = interaction[0]
     swissprot1 = interaction[1]
     gene2 = interaction[2]
     swissprot2 = interaction[3]
     for pdb_tup in itertools.product(gene_pdb_dictionary[gene1], gene_pdb_dictionary[gene2]):
+        print("for pdb_tup...")
         # check if .pdb file for each protein exists
         pdb1isfile = os.path.isfile("../data/input/{0}.pdb".format(pdb_tup[0]))
         pdb2isfile = os.path.isfile("../data/input/{0}.pdb".format(pdb_tup[1]))
@@ -136,12 +150,14 @@ for interaction in fi_no_interactome_set:
             download_pdb(pdb_tup[0], "../data/input")
 
         # perform zdock execution on .pdb files
+        print("perform zdock execution...")
         zdock(pdb_tup[0], pdb_tup[1])
 
         # record top zdock score and number of rows (complexes) with that score
         top_zdock_score = float("-inf")
         num_top_scores = 0
-        in_fptr = open("../data/input/zdock.out")
+        in_fptr = open(ZDOCK_OUT_FN)
+        print("record top zdock score and number of rows with that score...")
         while 1:
             line = in_fptr.readline()
             if not line:
@@ -154,9 +170,14 @@ for interaction in fi_no_interactome_set:
                 break  # zdock scores are listed hi -> lo
         in_fptr.close()
 
-        # open data/output/FIZdockScores.txt
+        # remove zdock outfile
+        print("remove zdock outfile...")
+        os.remove(ZDOCK_OUT_FN)
+
+        # open ZDOCK_SCORE_FN
+        print("write to ZDOCK_SCORE_FN...")
         # store genes, pdbs, top zscore, number of complexes with top score
-        with open("../data/ouput/FIZdockScores.txt", 'a') as out_fptr:
+        with open(ZDOCK_SCORE_FN, 'a') as out_fptr:
             out_fptr.write("{0},{1},{2},{3},{4},{5}\n".format(gene1, pdb_tup[0],
                                                               gene2, pdb_tup[1],
                                                               top_zdock_score, num_top_scores))
