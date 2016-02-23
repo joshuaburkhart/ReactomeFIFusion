@@ -1,3 +1,4 @@
+import ftplib
 import os.path
 import re
 import itertools
@@ -138,17 +139,22 @@ for interaction in fi_no_interactome_set:
         # check if .pdb file for each protein exists
         pdb1isfile = os.path.isfile("{0}/{1}.pdb".format(OUT_DIR,pdb_tup[0]))
         pdb2isfile = os.path.isfile("{0}/{1}.pdb".format(OUT_DIR,pdb_tup[1]))
-        if (not pdb1isfile) and (not pdb2isfile):
-            # delete any existing .pdb files & download .pdb files for each protein
-            [os.remove(pdbfile) for pdbfile in glob('{0}/*.pdb'.format(OUT_DIR))]
-            download_pdb(pdb_tup[0], OUT_DIR)
-            download_pdb(pdb_tup[1], OUT_DIR)
-        elif pdb1isfile:
-            # download .pdb 2
-            download_pdb(pdb_tup[1], OUT_DIR)
-        elif pdb2isfile:
-            # download .pdb 1
-            download_pdb(pdb_tup[0], OUT_DIR)
+
+        try:
+            if (not pdb1isfile) and (not pdb2isfile):
+                # delete any existing .pdb files & download .pdb files for each protein
+                [os.remove(pdbfile) for pdbfile in glob('{0}/*.pdb'.format(OUT_DIR))]
+                download_pdb(pdb_tup[0], OUT_DIR)
+                download_pdb(pdb_tup[1], OUT_DIR)
+            elif pdb1isfile:
+                # download .pdb 2
+                download_pdb(pdb_tup[1], OUT_DIR)
+            elif pdb2isfile:
+                # download .pdb 1
+                download_pdb(pdb_tup[0], OUT_DIR)
+        except ftplib.error_perm as ep:
+            print("ERROR RETRIEVING PDB: {0} (SKIPPING)".format(ep))
+            break
 
         # perform zdock execution on .pdb files
         print("perform zdock execution...")
