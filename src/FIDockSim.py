@@ -69,8 +69,8 @@ def download_pdb(pdb_id, download_dir):
 def zdock(pdb_receptor, pdb_ligand):
     print("zdock...")
 
-    cp_R_to_zdock_cmd = "cp {0}/{1}.pdb {2}/".format(OUT_DIR,pdb_receptor,ZDOCK_DIR)
-    cp_L_to_zdock_cmd = "cp {0}/{1}.pdb {2}/".format(OUT_DIR,pdb_ligand,ZDOCK_DIR)
+    cp_R_to_zdock_cmd = "cp {0}/{1}.pdb {2}/".format(OUT_DIR, pdb_receptor, ZDOCK_DIR)
+    cp_L_to_zdock_cmd = "cp {0}/{1}.pdb {2}/".format(OUT_DIR, pdb_ligand, ZDOCK_DIR)
     os.system(cp_R_to_zdock_cmd)
     os.system(cp_L_to_zdock_cmd)
 
@@ -81,12 +81,13 @@ def zdock(pdb_receptor, pdb_ligand):
     print(mark_sur_L_cmd)
     os.system(mark_sur_L_cmd)
 
-    zdock_cmd = "cd {0} && {1} -R {2}_m.pdb -L {3}_m.pdb -o {4}".format(ZDOCK_DIR, ZDOCK, pdb_receptor, pdb_ligand, ZDOCK_OUT_FN)
+    zdock_cmd = "cd {0} && {1} -R {2}_m.pdb -L {3}_m.pdb -o {4}".format(ZDOCK_DIR, ZDOCK, pdb_receptor, pdb_ligand,
+                                                                        ZDOCK_OUT_FN)
     print(zdock_cmd)
     os.system(zdock_cmd)
 
-    cp_R_to_data_cmd = "cp {0}/{1}_m.pdb {2}/".format(ZDOCK_DIR,pdb_receptor,OUT_DIR)
-    cp_L_to_data_cmd = "cp {0}/{1}_m.pdb {2}/".format(ZDOCK_DIR,pdb_ligand,OUT_DIR)
+    cp_R_to_data_cmd = "cp {0}/{1}_m.pdb {2}/".format(ZDOCK_DIR, pdb_receptor, OUT_DIR)
+    cp_L_to_data_cmd = "cp {0}/{1}_m.pdb {2}/".format(ZDOCK_DIR, pdb_ligand, OUT_DIR)
     os.system(cp_R_to_data_cmd)
     os.system(cp_L_to_data_cmd)
 
@@ -157,13 +158,14 @@ for interaction in fi_no_interactome_set:
     for pdb_tup in itertools.product(gene_pdb_dictionary[gene1], gene_pdb_dictionary[gene2]):
         print("for pdb_tup...")
         # check if .pdb file for each protein exists
-        pdb1isfile = os.path.isfile("{0}/{1}.pdb".format(OUT_DIR,pdb_tup[0]))
-        pdb2isfile = os.path.isfile("{0}/{1}.pdb".format(OUT_DIR,pdb_tup[1]))
+        pdb1isfile = os.path.isfile("{0}/{1}.pdb".format(OUT_DIR, pdb_tup[0]))
+        pdb2isfile = os.path.isfile("{0}/{1}.pdb".format(OUT_DIR, pdb_tup[1]))
 
         try:
             if (not pdb1isfile) and (not pdb2isfile):
                 # delete any existing .pdb files & download .pdb files for each protein
                 [os.remove(pdbfile) for pdbfile in glob('{0}/*.pdb'.format(OUT_DIR))]
+                [os.remove(pdbfile) for pdbfile in glob('{0}/*.pdb.gz'.format(OUT_DIR))]
                 download_pdb(pdb_tup[0], OUT_DIR)
                 download_pdb(pdb_tup[1], OUT_DIR)
             elif pdb1isfile:
@@ -190,7 +192,7 @@ for interaction in fi_no_interactome_set:
             if not line:
                 break
             match = re.match(ZDOCK_SCORE_CAPTURE, line)
-            if match and float(match.group('zdock_score')) >= top_zdock_score:
+            if match and float(match.group('zdock_score')) >= top_zdock_score and float(match.group('zdock_score')) > float("-inf"):
                 top_zdock_score = float(match.group('zdock_score'))
                 num_top_scores += 1
             else:
