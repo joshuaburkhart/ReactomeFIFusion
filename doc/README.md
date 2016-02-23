@@ -121,6 +121,33 @@ are not in the binding site, you can block them by changing their ACE type
 performance significantly. A blocking script block.pl is included, type
 "block.pl" for usage information.
 
+Install Issues:
+
+The mark_sur executable requires libg2c0, which depends on gcc-3.4-base.
+
+- Add the below lines to /etc/apt/sources.list (from http://askubuntu.com/questions/39628/old-version-of-gcc-for-new-ubuntu)
+
+```
+deb     http://snapshot.debian.org/archive/debian/20070730T000000Z/ lenny main
+deb-src http://snapshot.debian.org/archive/debian/20070730T000000Z/ lenny main
+deb     http://snapshot.debian.org/archive/debian-security/20070730T000000Z/ lenny/updates main
+deb-src http://snapshot.debian.org/archive/debian-security/20070730T000000Z/ lenny/updates main
+```
+
+- Install dependencies and libg2c0
+
+```
+$ sudo apt-get update
+$ sudo apt-get install build-essential
+$ sudo apt-get install gcc-3.4-base
+$ sudo apt-get install libg2c0
+```
+
+Install Notes:
+
+- You may have to sprinkle ```$ sudo apt-get -f install``` into the above solution to fix broken packages.
+- You can download the libg2c0 deb package with ```curl "old-releases.ubuntu.com/ubuntu/pool/universe/g/gcc-3.4/libg2c0_3.4.6-6ubuntu5_amd64.deb" -o libg2c0_3.4.6-6ubuntu5_amd64.deb``` and install it with ```sudo dpkg -i libg2c0_3.4.6-6ubuntu5_amd64.deb```.
+
 ####BUDE
 
 http://www.bris.ac.uk/biochemistry/research/bude
