@@ -28,7 +28,7 @@ ZDOCK_SCORE_CAPTURE = "^(-?[0-9]+.)?[0-9]*\t" \
                       "(-?[0-9]+.)?[0-9]*\t" \
                       "(?P<zdock_score>.*)"
 
-OUT_DIR = "../data/output"
+OUT_DIR = "/home/burkhart/Software/ReactomePPI/data/output"
 FIINT_FN = OUT_DIR + "/FIInteract.txt"
 ANNOT_PDB_FN = OUT_DIR + "/FIAnnotPdb.txt"
 ZDOCK_OUT_FN = OUT_DIR + "/zdock.out"
