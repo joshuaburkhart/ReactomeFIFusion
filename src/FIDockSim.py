@@ -186,18 +186,22 @@ for interaction in fi_no_interactome_set:
         print("record top zdock score and number of rows with that score...")
         top_zdock_score = float("-inf")
         num_top_scores = 0
-        in_fptr = open(ZDOCK_OUT_FN)
-        while 1:
-            line = in_fptr.readline()
-            if not line:
-                break
-            match = re.match(ZDOCK_SCORE_CAPTURE, line)
-            if match and float(match.group('zdock_score')) >= top_zdock_score and float(match.group('zdock_score')) > float("-inf"):
-                top_zdock_score = float(match.group('zdock_score'))
-                num_top_scores += 1
-            else:
-                break  # zdock scores are listed hi -> lo
-        in_fptr.close()
+        try:
+            in_fptr = open(ZDOCK_OUT_FN)
+            while 1:
+                line = in_fptr.readline()
+                if not line:
+                    break
+                match = re.match(ZDOCK_SCORE_CAPTURE, line)
+                if match and float(match.group('zdock_score')) >= top_zdock_score and float(match.group('zdock_score')) > float("-inf"):
+                    top_zdock_score = float(match.group('zdock_score'))
+                    num_top_scores += 1
+                else:
+                    break  # zdock scores are listed hi -> lo
+            in_fptr.close()
+        except FileNotFoundError as fnf:
+            print("ERROR CREATING ZDOCK.OUT: {0} (SKIPPING)".format(fnf))
+            break
 
         # remove zdock outfile
         print("remove zdock outfile...")
