@@ -27,13 +27,14 @@ ZDOCK_SCORE_CAPTURE = "^(-?[0-9]+.)?[0-9]*\t" \
                       "(-?[0-9]+.)?[0-9]*\t" \
                       "(?P<zdock_score>.*)"
 
-ZDOCK_SCORE_FN = "../data/output/FIZdockScores.txt"
-ANNOT_PDB_FN = "../data/input/FIAnnotPdb.txt"
-ZDOCK_OUT_FN = "../data/input/zdock.out"
-FIINT_FN = "../data/input/FIInteract.txt"
+OUT_DIR = "../data/output"
+FIINT_FN = OUT_DIR + "/FIInteract.txt"
+ANNOT_PDB_FN = OUT_DIR + "/FIAnnotPdb.txt"
+ZDOCK_OUT_FN = OUT_DIR + "/zdock.out"
+ZDOCK_SCORE_FN = OUT_DIR + "/FIZdockScores.txt"
 
-MARK_SUR = "/home/burkhart/zdock3.0.2_linux_x64/mark_sur"
 ZDOCK = "/home/burkhart/zdock3.0.2_linux_x64/zdock"
+MARK_SUR = "/home/burkhart/zdock3.0.2_linux_x64/mark_sur"
 
 prev_comp_pdb_set = set()
 gene_pdb_dictionary = dict()
@@ -65,10 +66,10 @@ def download_pdb(pdb_id, download_dir):
 
 def zdock(pdb_receptor, pdb_ligand):
     print("zdock...")
-    os.system(MARK_SUR + " " + "../data/input/{0}.pdb ../data/input/{0}_m.pdb".format(pdb_receptor))
-    os.system(MARK_SUR + " " + "../data/input/{0}.pdb ../data/input/{0}_m.pdb".format(pdb_ligand))
-    os.system(ZDOCK + " " + "-R ../data/input/{0}_m.pdb "
-                            "-L ../data/input/{1}_m.pdb -o {2}".format(pdb_receptor, pdb_ligand,ZDOCK_OUT_FN))
+    os.system("{0} {1}/{2}.pdb {1}/{2}_m.pdb".format(MARK_SUR, OUT_DIR, pdb_receptor))
+    os.system("{0} {1}/{2}.pdb {1}/{2}_m.pdb".format(MARK_SUR, OUT_DIR, pdb_ligand))
+    os.system(
+        "{0} -R {1}/{2}_m.pdb -L {1}/{3}_m.pdb -o {4}".format(ZDOCK, OUT_DIR, pdb_receptor, pdb_ligand, ZDOCK_OUT_FN))
 
 
 # read ZDOCK_SCORE_FN (if it exists)
@@ -135,19 +136,19 @@ for interaction in fi_no_interactome_set:
     for pdb_tup in itertools.product(gene_pdb_dictionary[gene1], gene_pdb_dictionary[gene2]):
         print("for pdb_tup...")
         # check if .pdb file for each protein exists
-        pdb1isfile = os.path.isfile("../data/input/{0}.pdb".format(pdb_tup[0]))
-        pdb2isfile = os.path.isfile("../data/input/{0}.pdb".format(pdb_tup[1]))
+        pdb1isfile = os.path.isfile("{0}/{1}.pdb".format(OUT_DIR,pdb_tup[0]))
+        pdb2isfile = os.path.isfile("{0}/{1}.pdb".format(OUT_DIR,pdb_tup[1]))
         if (not pdb1isfile) and (not pdb2isfile):
             # delete any existing .pdb files & download .pdb files for each protein
-            [os.remove(pdbfile) for pdbfile in glob('../data/input/*.pdb')]
-            download_pdb(pdb_tup[0], "../data/input")
-            download_pdb(pdb_tup[1], "../data/input")
+            [os.remove(pdbfile) for pdbfile in glob('{0}/*.pdb'.format(OUT_DIR))]
+            download_pdb(pdb_tup[0], OUT_DIR)
+            download_pdb(pdb_tup[1], OUT_DIR)
         elif pdb1isfile:
             # download .pdb 2
-            download_pdb(pdb_tup[1], "../data/input")
+            download_pdb(pdb_tup[1], OUT_DIR)
         elif pdb2isfile:
             # download .pdb 1
-            download_pdb(pdb_tup[0], "../data/input")
+            download_pdb(pdb_tup[0], OUT_DIR)
 
         # perform zdock execution on .pdb files
         print("perform zdock execution...")
