@@ -121,6 +121,10 @@ are not in the binding site, you can block them by changing their ACE type
 performance significantly. A blocking script block.pl is included, type
 "block.pl" for usage information.
 
+Execution Issues:
+
+You may have to increase the stack size with ```$ ulimit -s 16384``` to avoid mark_sur segmentation faults. See http://bioweb.cbm.uam.es/courses/Farmamol07/dia5/hex_manual.pdf (Appendix E) for details.
+
 Install Issues:
 
 The mark_sur executable requires libg2c0, which depends on gcc-3.4-base.
