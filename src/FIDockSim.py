@@ -81,7 +81,7 @@ def zdock(pdb_receptor, pdb_ligand):
     print(mark_sur_L_cmd)
     os.system(mark_sur_L_cmd)
 
-    zdock_cmd = "cd {0} && {1} -R {2}_m.pdb -L {3}_m.pdb -o {4}".format(ZDOCK_DIR, ZDOCK, OUT_DIR, pdb_receptor, pdb_ligand, ZDOCK_OUT_FN)
+    zdock_cmd = "cd {0} && {1} -R {2}_m.pdb -L {3}_m.pdb -o {4}".format(ZDOCK_DIR, ZDOCK, pdb_receptor, pdb_ligand, ZDOCK_OUT_FN)
     print(zdock_cmd)
     os.system(zdock_cmd)
 
