@@ -57,8 +57,8 @@ def download_pdb(pdb_id, download_dir):
     # see http://www.rcsb.org/pdb/static.do?p=download/ftp/index.html
     pdb_ftp = FTP("ftp.wwpdb.org")
     pdb_ftp.login()
-    pdb_ftp.cwd("pub/pdb/data/structures/divided/pdb/{0}".format(pdb_id[1:3].tolower()))
-    pdb_ftp.retrbinary('RETR pdb{0}.ent.gz'.format(pdb_id.tolower()),
+    pdb_ftp.cwd("pub/pdb/data/structures/divided/pdb/{0}".format(pdb_id[1:3].lower()))
+    pdb_ftp.retrbinary('RETR pdb{0}.ent.gz'.format(pdb_id.lower()),
                        open(out_file, 'wb').write)
     pdb_ftp.quit()
     os.system("gunzip {0}".format(out_file))
