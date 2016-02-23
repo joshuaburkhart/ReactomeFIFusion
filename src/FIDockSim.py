@@ -34,8 +34,9 @@ ANNOT_PDB_FN = OUT_DIR + "/FIAnnotPdb.txt"
 ZDOCK_OUT_FN = OUT_DIR + "/zdock.out"
 ZDOCK_SCORE_FN = OUT_DIR + "/FIZdockScores.txt"
 
-ZDOCK = "/home/burkhart/zdock3.0.2_linux_x64/zdock"
-MARK_SUR = "/home/burkhart/zdock3.0.2_linux_x64/mark_sur"
+ZDOCK_DIR = "/home/burkhart/zdock3.0.2_linux_x64"
+ZDOCK = ZDOCK_DIR + "/zdock"
+MARK_SUR = ZDOCK_DIR + "/mark_sur"
 
 prev_comp_pdb_set = set()
 gene_pdb_dictionary = dict()
@@ -67,17 +68,29 @@ def download_pdb(pdb_id, download_dir):
 
 def zdock(pdb_receptor, pdb_ligand):
     print("zdock...")
-    mark_sur_cmd1 = "{0} {1}/{2}.pdb {1}/{2}_m.pdb".format(MARK_SUR, OUT_DIR, pdb_receptor)
-    print(mark_sur_cmd1)
-    os.system(mark_sur_cmd1)
 
-    mark_sur_cmd2 = "{0} {1}/{2}.pdb {1}/{2}_m.pdb".format(MARK_SUR, OUT_DIR, pdb_ligand)
-    print(mark_sur_cmd2)
-    os.system(mark_sur_cmd2)
+    cp_R_to_zdock_cmd = "cp {0}/{1}.pdb {2}/".format(OUT_DIR,pdb_receptor,ZDOCK_DIR)
+    cp_L_to_zdock_cmd = "cp {0}/{1}.pdb {2}/".format(OUT_DIR,pdb_ligand,ZDOCK_DIR)
+    os.system(cp_R_to_zdock_cmd)
+    os.system(cp_L_to_zdock_cmd)
 
-    zdock_cmd = "{0} -R {1}/{2}_m.pdb -L {1}/{3}_m.pdb -o {4}".format(ZDOCK, OUT_DIR, pdb_receptor, pdb_ligand, ZDOCK_OUT_FN)
+    mark_sur_R_cmd = "cd {0} && {1} {2}.pdb {2}_m.pdb".format(ZDOCK_DIR, MARK_SUR, pdb_receptor)
+    mark_sur_L_cmd = "cd {0} && {1} {2}.pdb {2}_m.pdb".format(ZDOCK_DIR, MARK_SUR, pdb_ligand)
+    print(mark_sur_R_cmd)
+    os.system(mark_sur_R_cmd)
+    print(mark_sur_L_cmd)
+    os.system(mark_sur_L_cmd)
+
+    zdock_cmd = "cd {0} && {1} -R {2}_m.pdb -L {3}_m.pdb -o {4}".format(ZDOCK_DIR, ZDOCK, OUT_DIR, pdb_receptor, pdb_ligand, ZDOCK_OUT_FN)
     print(zdock_cmd)
     os.system(zdock_cmd)
+
+    cp_R_to_data_cmd = "cp {0}/{1}_m.pdb {2}/".format(ZDOCK_DIR,pdb_receptor,OUT_DIR)
+    cp_L_to_data_cmd = "cp {0}/{1}_m.pdb {2}/".format(ZDOCK_DIR,pdb_ligand,OUT_DIR)
+    os.system(cp_R_to_data_cmd)
+    os.system(cp_L_to_data_cmd)
+
+    [os.remove(pdbfile) for pdbfile in glob('{0}/*.pdb'.format(ZDOCK_DIR))]
 
 
 # read ZDOCK_SCORE_FN (if it exists)
