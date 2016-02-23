@@ -62,15 +62,22 @@ def download_pdb(pdb_id, download_dir):
     pdb_ftp.retrbinary('RETR pdb{0}.ent.gz'.format(pdb_id.lower()),
                        open(out_file, 'wb').write)
     pdb_ftp.quit()
-    os.system("gunzip {0}".format(out_file))
+    os.system("gunzip -f {0}".format(out_file))
 
 
 def zdock(pdb_receptor, pdb_ligand):
     print("zdock...")
-    os.system("{0} {1}/{2}.pdb {1}/{2}_m.pdb".format(MARK_SUR, OUT_DIR, pdb_receptor))
-    os.system("{0} {1}/{2}.pdb {1}/{2}_m.pdb".format(MARK_SUR, OUT_DIR, pdb_ligand))
-    os.system(
-        "{0} -R {1}/{2}_m.pdb -L {1}/{3}_m.pdb -o {4}".format(ZDOCK, OUT_DIR, pdb_receptor, pdb_ligand, ZDOCK_OUT_FN))
+    mark_sur_cmd1 = "{0} {1}/{2}.pdb {1}/{2}_m.pdb".format(MARK_SUR, OUT_DIR, pdb_receptor)
+    print(mark_sur_cmd1)
+    os.system(mark_sur_cmd1)
+
+    mark_sur_cmd2 = "{0} {1}/{2}.pdb {1}/{2}_m.pdb".format(MARK_SUR, OUT_DIR, pdb_ligand)
+    print(mark_sur_cmd2)
+    os.system(mark_sur_cmd2)
+
+    zdock_cmd = "{0} -R {1}/{2}_m.pdb -L {1}/{3}_m.pdb -o {4}".format(ZDOCK, OUT_DIR, pdb_receptor, pdb_ligand, ZDOCK_OUT_FN)
+    print(zdock_cmd)
+    os.system(zdock_cmd)
 
 
 # read ZDOCK_SCORE_FN (if it exists)
@@ -161,10 +168,10 @@ for interaction in fi_no_interactome_set:
         zdock(pdb_tup[0], pdb_tup[1])
 
         # record top zdock score and number of rows (complexes) with that score
+        print("record top zdock score and number of rows with that score...")
         top_zdock_score = float("-inf")
         num_top_scores = 0
         in_fptr = open(ZDOCK_OUT_FN)
-        print("record top zdock score and number of rows with that score...")
         while 1:
             line = in_fptr.readline()
             if not line:
