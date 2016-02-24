@@ -193,11 +193,12 @@ for interaction in fi_no_interactome_set:
                 if not line:
                     break
                 match = re.match(ZDOCK_SCORE_CAPTURE, line)
-                if match and float(match.group('zdock_score')) >= top_zdock_score and float(match.group('zdock_score')) > float("-inf"):
-                    top_zdock_score = float(match.group('zdock_score'))
-                    num_top_scores += 1
-                else:
-                    break  # zdock scores are listed hi -> lo
+                if match and float(match.group('zdock_score')) > float("-inf"):
+                    if float(match.group('zdock_score')) >= top_zdock_score:
+                        top_zdock_score = float(match.group('zdock_score'))
+                        num_top_scores += 1
+                    else:
+                        break  # zdock scores are listed hi -> lo
             in_fptr.close()
         except FileNotFoundError as fnf:
             print("ERROR CREATING ZDOCK.OUT: {0} (SKIPPING)".format(fnf))
