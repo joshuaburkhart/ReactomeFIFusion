@@ -1,8 +1,11 @@
 # ReactomePPI
 
+## Pipeline Schematic
+![alt tag](./vis/PipelineSchematic.png)
+
 ## Input
 
-http://reactomews.oicr.on.ca:8080/caBigR3WebApp2014/FIsInGene_121514_with_annotations.txt.zip
+[ReactomeFI](http://reactomews.oicr.on.ca:8080/caBigR3WebApp2014/FIsInGene_121514_with_annotations.txt.zip)
 
 Format
 ```
@@ -20,8 +23,7 @@ A2M    CTSB    predicted    -    0.61
 
 ### MyGene
 
-https://pypi.python.org/pypi/mygene
-https://www.biostars.org/p/22/
+[Reference](https://pypi.python.org/pypi/mygene)
 
 ### Install
 
@@ -42,60 +44,40 @@ mg.querymany(geneSymbols,
              as_dataframe=True)
 ```
 
-## Preprocessing Results
+## Preprocessing
 
 Python script produces 72000+ rows.  
-72123 / 217250 = 0.33198158803222094  
+72123 / 217250 = 0.33198
 33% coverage of FI's
 
-Many genes have several PDB's, how can we prioritize them?
+Many genes have several PDB's, so calculating the best-docking complex will require testing all possible pairs. We'll need to reduce our dataset in order to perform docking simulations as each simulation takes between 15 minutes and an hour. We'll use Eric Leung's [gene-fusion-analysis work](https://github.com/erictleung/gene-fusion-analysis) (forked [here](https://github.com/joshuaburkhart/gene-fusion-analysis)) to filter the gene pairs to only those including genes involved in a fusion event.
 
-### Missing Data
+```
+Example:
 
-http://www.sbg.bio.ic.ac.uk/phyre2/webscripts/dbmapper.cgi
+Fusion Event from Eric's Work
+{Gene A <connected to> Gene B}
 
-If no PDB exists and time allows, get swiss-prot and use phyre2 webserver. PDB File can be downloaded. *Now what do we do with it? Upload to webserver?
+Included in Docking Simulation
+Gene Pair {A, X}
+Gene Pair {A, Y}
+Gene Pair {D, A}
+Gene Pair {B, Z}
+Gene Pair {C, B}
+
+Not Included in Docking Simulation
+Gene Pair {C, D}
+Gene Pair {X, Y}
+```
 
 ## PPI
 
 ### Query Interactome3D Database for Known Interactions & Complexes
 
-http://interactome3d.irbbarcelona.org/help.php#restful  
-http://interactome3d.irbbarcelona.org/help.php#interactions_dat_file  
-https://docs.python.org/3/library/xml.etree.elementtree.html  
+[API](http://interactome3d.irbbarcelona.org/help.php#restful)  
+[Data](http://interactome3d.irbbarcelona.org/help.php#interactions_dat_file)
 
-### Use a Modelling Program, like IMP to Assess Putative Interactions & Complexes
-
-
-####IMP
-
-https://integrativemodeling.org/  
-review http://www.cgl.ucsf.edu/chimera/
-gather data from experimental & theoretical databases
-
-    Experimental techniques, such as:
-        X-ray crystallography
-        nuclear magnetic resonance (NMR) spectroscopy (CSP, NOE, J-couplings)
-        electron microscopy (EM) (2D class averages or 3D maps)
-        footprinting
-        Immunoprecipitation pull-down
-        Cysteine cross-linking
-        Chemical cross-linking
-        FRET spectroscopy
-        small angle X-ray scattering (SAXS)
-        proteomics
-    Theoretical sources of information, such as:
-        template structures used in comparative/homology modeling
-        scoring functions used in molecular docking
-        statistical preferences
-        physics-based energy functions
-
-PDBe (Cryo EM) API
-http://www.ebi.ac.uk/pdbe/pdbe-rest-api
-
-Store entry information & rank interactions based on information available
-Begin IMP analysis in order of most information -> least
-
+### Use a Modelling Program to Assess Putative Interactions & Complexes
 
 ####ZDOCK
 
@@ -123,13 +105,13 @@ performance significantly. A blocking script block.pl is included, type
 
 Execution Issues:
 
-You may have to increase the stack size with ```$ ulimit -s 16384``` to avoid mark_sur segmentation faults. See http://bioweb.cbm.uam.es/courses/Farmamol07/dia5/hex_manual.pdf (Appendix E) for details.
+You may have to increase the stack size with ```$ ulimit -s 16384``` to avoid mark_sur segmentation faults. See [the Hex manual](http://bioweb.cbm.uam.es/courses/Farmamol07/dia5/hex_manual.pdf) (Appendix E) for details.
 
 Install Issues:
 
 The mark_sur executable requires libg2c0, which depends on gcc-3.4-base.
 
-- Add the below lines to /etc/apt/sources.list (from http://askubuntu.com/questions/39628/old-version-of-gcc-for-new-ubuntu)
+- [Add the below lines to /etc/apt/sources.list](http://askubuntu.com/questions/39628/old-version-of-gcc-for-new-ubuntu)
 
 ```
 deb     http://snapshot.debian.org/archive/debian/20070730T000000Z/ lenny main
@@ -152,22 +134,8 @@ Install Notes:
 - You may have to sprinkle ```$ sudo apt-get -f install``` into the above solution to fix broken packages.
 - You can download the libg2c0 deb package with ```curl "old-releases.ubuntu.com/ubuntu/pool/universe/g/gcc-3.4/libg2c0_3.4.6-6ubuntu5_amd64.deb" -o libg2c0_3.4.6-6ubuntu5_amd64.deb``` and install it with ```sudo dpkg -i libg2c0_3.4.6-6ubuntu5_amd64.deb```.
 
-####BUDE
-
-http://www.bris.ac.uk/biochemistry/research/bude
-
-### Other Python Libraries & APIs
-
-http://bmcstructbiol.biomedcentral.com/articles/10.1186/1472-6807-9-27  
-http://www.pyrosetta.org/  
-https://downloads.ccdc.cam.ac.uk/documentation/API/modules/docking_api.html  
-http://structure.bu.edu/content/protein-protein-docking  
-http://tools.iedb.org/main/bcell/modeling-docking/
-
-### ClusPro Webserver
-http://cluspro.bu.edu/home.php
-
-### HADDOCK Webserver
-http://www.bonvinlab.org/software/haddock2.2/pdb.html
-
 ### Interpretation
+
+Complexes are reported by ZDOCK as .pdb's and can be visualized with software such as [JMol](http://jmol.sourceforge.net/).
+
+![alt tag](../data/output/vis/3MAX-2XAQ/complex1.png)
