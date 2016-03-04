@@ -1,7 +1,10 @@
 # ReactomePPI
 
-## Pipeline Schematic
-![alt tag](./vis/PipelineSchematic.png)
+## Proposed Architecture
+![alt tag](./vis/ProposedReactomePPIArchitecture.png)
+
+## Current Architecture
+![alt tag](./vis/CurrentReactomePPIArchitecture.png)
 
 ## Input
 
