@@ -1,9 +1,9 @@
 // Fusion Effect Schematic
 digraph {
-	A [label="TEK: 1-640" fillcolor=lightgrey shape=box style="\"\""]
-	B [label="TEK: 641-718" color=yellow fillcolor=lightgrey shape=box style="\"\""]
-	C [label="TEK: 719-1124" fillcolor=lightgrey shape=box style="\"\""]
-	E [label="4nn7 Chain B" color=yellow fillcolor=lightgrey shape=box style="\"\""]
+	A [label="TEK: 1-640" fillcolor=lightgrey shape=box style=""]
+	B [label="TEK: 641-718" color=yellow fillcolor=lightgrey shape=box style=""]
+	C [label="TEK: 719-1124" fillcolor=lightgrey shape=box style=""]
+	E [label="4nn7 Chain B" color=yellow fillcolor=lightgrey shape=box style=""]
 	F [label="4nn7 Chain C" color=cyan fillcolor=pink shape=box style=filled]
 	G [label="PTPRK: 1-503" fillcolor=red shape=box style=filled]
 	H [label="PTPRK: 504-576" color=cyan fillcolor=pink shape=box style=filled]

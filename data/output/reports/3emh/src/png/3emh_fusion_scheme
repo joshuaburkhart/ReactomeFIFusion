@@ -1,9 +1,9 @@
 // Fusion Effect Schematic
 digraph {
-	A [label="WDR5: 1-32" fillcolor=lightgrey shape=box style="\"\""]
-	B [label="WDR5: 33-332" color=yellow fillcolor=lightgrey shape=box style="\"\""]
-	C [label="WDR5: 333-334" fillcolor=lightgrey shape=box style="\"\""]
-	E [label="3emh Chain A" color=yellow fillcolor=lightgrey shape=box style="\"\""]
+	A [label="WDR5: 1-32" fillcolor=lightgrey shape=box style=""]
+	B [label="WDR5: 33-332" color=yellow fillcolor=lightgrey shape=box style=""]
+	C [label="WDR5: 333-334" fillcolor=lightgrey shape=box style=""]
+	E [label="3emh Chain A" color=yellow fillcolor=lightgrey shape=box style=""]
 	F [label="3emh Chain B" color=cyan fillcolor=pink shape=box style=filled]
 	G [label="KMT2A: 1-3763" fillcolor=red shape=box style=filled]
 	H [label="KMT2A: 3764-3769" color=cyan fillcolor=pink shape=box style=filled]

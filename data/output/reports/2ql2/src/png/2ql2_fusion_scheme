@@ -1,13 +1,13 @@
 // Fusion Effect Schematic
 digraph {
-	A [label="TCF3: 1-549" fillcolor=lightgrey shape=box style="\"\""]
+	A [label="TCF3: 1-549" fillcolor=lightgrey shape=box style=""]
 	B [label="TCF3: 550-609" color=yellow fillcolor=red shape=box style=filled]
 	C [label="TCF3: 610-654" fillcolor=pink shape=box style=filled]
 	E [label="2ql2 Chain C" color=yellow fillcolor=pink shape=box style=filled]
-	F [label="2ql2 Chain B" color=cyan fillcolor=lightgrey shape=box style="\"\""]
-	G [label="TWIST1: 1-107" fillcolor=lightgrey shape=box style="\"\""]
-	H [label="TWIST1: 108-165" color=cyan fillcolor=lightgrey shape=box style="\"\""]
-	I [label="TWIST1: 166-202" fillcolor=lightgrey shape=box style="\"\""]
+	F [label="2ql2 Chain B" color=cyan fillcolor=lightgrey shape=box style=""]
+	G [label="TWIST1: 1-107" fillcolor=lightgrey shape=box style=""]
+	H [label="TWIST1: 108-165" color=cyan fillcolor=lightgrey shape=box style=""]
+	I [label="TWIST1: 166-202" fillcolor=lightgrey shape=box style=""]
 		A -> B
 		B -> C
 		G -> H

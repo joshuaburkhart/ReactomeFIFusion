@@ -2,9 +2,12 @@ from lxml import html
 import requests
 import urllib
 import os
+import codecs
 import re
 from graphviz import Digraph
 from collections import defaultdict
+from markdown import markdown,markdownFromFile
+import pdfkit
 
 PFAM_STRING = 'Pfam'
 FUSION_INTRCN_RESULTS_FN = '{0}/../data/output/FIInteractFusionEvents.txt'.format(
@@ -261,7 +264,7 @@ for intrcn in interactions:
 
         # Generate Fusion Effect Schematic Image
         style = {}
-        style = defaultdict(lambda: '""',style)
+        style = defaultdict(lambda: '',style)
 
         fillcolor = {}
         fillcolor = defaultdict(lambda: 'lightgrey',fillcolor)
@@ -413,9 +416,15 @@ for intrcn in interactions:
             out_fptr.write('\n## Fusion Effect Schematic')
             out_fptr.write('\n![{0} Fusion Effect Schematic]({1})'.format(intrcn_cplx,fusion_schematic_png_path))
 
-            # Generate PDF
+        # Generate PDF
+        with open(md_path, 'r') as in_fptr:
+            html_text = markdown(in_fptr.read(), output_format='html4')
 
-            # Generate HTML
+        pdfkit.from_string(html_text, '{0}/{1}.pdf'.format(PDF_DIR,intrcn_cplx))
+
+        # Generate HTML
+        markdownFromFile(md_path,'{0}/{1}.html'.format(HTML_DIR,intrcn_cplx))
+
     except IndexError as ie:
         err_msg = 'ERROR: "IndexError" exception when attempting to generate a report for {0}: {1}'.format(intrcn, ie)
         print(err_msg)

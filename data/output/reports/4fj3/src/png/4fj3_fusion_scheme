@@ -1,13 +1,13 @@
 // Fusion Effect Schematic
 digraph {
-	A [label="RAF1: 1-229" fillcolor=lightgrey shape=box style="\"\""]
-	B [label="RAF1: 230-246" color=yellow fillcolor=lightgrey shape=box style="\"\""]
+	A [label="RAF1: 1-229" fillcolor=lightgrey shape=box style=""]
+	B [label="RAF1: 230-246" color=yellow fillcolor=lightgrey shape=box style=""]
 	C [label="RAF1: 247-648" fillcolor=red shape=box style=filled]
-	E [label="4fj3 Chain P" color=yellow fillcolor=lightgrey shape=box style="\"\""]
-	F [label="4fj3 Chain B" color=cyan fillcolor=lightgrey shape=box style="\"\""]
-	G [label="YWHAZ: 1-1" fillcolor=lightgrey shape=box style="\"\""]
-	H [label="YWHAZ: 2-230" color=cyan fillcolor=lightgrey shape=box style="\"\""]
-	I [label="YWHAZ: 231-245" fillcolor=lightgrey shape=box style="\"\""]
+	E [label="4fj3 Chain P" color=yellow fillcolor=lightgrey shape=box style=""]
+	F [label="4fj3 Chain B" color=cyan fillcolor=lightgrey shape=box style=""]
+	G [label="YWHAZ: 1-1" fillcolor=lightgrey shape=box style=""]
+	H [label="YWHAZ: 2-230" color=cyan fillcolor=lightgrey shape=box style=""]
+	I [label="YWHAZ: 231-245" fillcolor=lightgrey shape=box style=""]
 		A -> B
 		B -> C
 		G -> H
