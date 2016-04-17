@@ -1,0 +1,18 @@
+// Fusion Effect Schematic
+digraph {
+	A [label="YWHAZ: 1-1" fillcolor=lightgrey shape=box style="\"\""]
+	B [label="YWHAZ: 2-228" color=yellow fillcolor=lightgrey shape=box style="\"\""]
+	C [label="YWHAZ: 229-245" fillcolor=lightgrey shape=box style="\"\""]
+	E [label="2wh0 Chain B" color=yellow fillcolor=lightgrey shape=box style="\"\""]
+	F [label="2wh0 Chain Q" color=cyan fillcolor=lightgrey shape=box style="\"\""]
+	G [label="PRKCE: 1-364" fillcolor=lightgrey shape=box style="\"\""]
+	H [label="PRKCE: 365-372" color=cyan fillcolor=lightgrey shape=box style="\"\""]
+	I [label="PRKCE: 373-737" fillcolor=red shape=box style=filled]
+		A -> B
+		B -> C
+		G -> H
+		H -> I
+		E -> F
+		B -> E [color=gray constraint=false]
+		H -> F [color=gray constraint=false]
+}

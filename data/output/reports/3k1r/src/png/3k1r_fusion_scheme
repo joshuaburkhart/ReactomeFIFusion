@@ -1,0 +1,18 @@
+// Fusion Effect Schematic
+digraph {
+	A [label="USH1G: 1-387" fillcolor=lightgrey shape=box style="\"\""]
+	B [label="USH1G: 388-461" color=yellow fillcolor=lightgrey shape=box style="\"\""]
+	C [label="USH1G: 462-461" fillcolor=lightgrey shape=box style="\"\""]
+	E [label="3k1r Chain B" color=yellow fillcolor=lightgrey shape=box style="\"\""]
+	F [label="3k1r Chain A" color=cyan fillcolor=lightgrey shape=box style="\"\""]
+	G [label="USH1G: 1-0" fillcolor=lightgrey shape=box style="\"\""]
+	H [label="USH1G: 1-192" color=cyan fillcolor=lightgrey shape=box style="\"\""]
+	I [label="USH1G: 193-552" fillcolor=red shape=box style=filled]
+		A -> B
+		B -> C
+		G -> H
+		H -> I
+		E -> F
+		B -> E [color=gray constraint=false]
+		H -> F [color=gray constraint=false]
+}

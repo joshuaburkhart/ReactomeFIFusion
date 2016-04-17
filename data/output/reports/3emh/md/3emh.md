@@ -29,5 +29,7 @@
 	Second Gene in Fusion: CREBBP, genomic breakpoint: 1609, AA breakpoint: 536
 ## Jmol
 ![3emh Jmol Rendering](/Users/joshuaburkhart/Research/ReactomePPI/src/../data/output/reports/3emh/src/png/3emh.png)
-## Schematic
-![3emh Schematic](/Users/joshuaburkhart/Research/ReactomePPI/src/../data/output/reports/3emh/src/png/3emh_scheme.png)
+## Interaction Schematic
+![3emh Interaction Schematic](/Users/joshuaburkhart/Research/ReactomePPI/src/../data/output/reports/3emh/src/png/3emh_scheme.png)
+## Fusion Effect Schematic
+![3emh Fusion Effect Schematic](/Users/joshuaburkhart/Research/ReactomePPI/src/../data/output/reports/3emh/src/png/3emh_fusion_scheme.png)

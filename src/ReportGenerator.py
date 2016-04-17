@@ -4,6 +4,7 @@ import urllib
 import os
 import re
 from graphviz import Digraph
+from collections import defaultdict
 
 PFAM_STRING = 'Pfam'
 FUSION_INTRCN_RESULTS_FN = '{0}/../data/output/FIInteractFusionEvents.txt'.format(
@@ -231,19 +232,19 @@ for intrcn in interactions:
         }
 
         aa_brk = {
-            cosmic_gene1: int(int(gene_brk[cosmic_gene1].split('+')[-1:][0].split('-')[-1:][0]) / 3)
+            cosmic_gene1: int(int(gene_brk[cosmic_gene1].split('+')[-1:][0].split('-')[-1:][0]) / 3),
             cosmic_gene2: int(int(gene_brk[cosmic_gene2].split('+')[-1:][0].split('-')[-1:][0]) / 3)
         }
 
         # Generate Interaction Schematic Image
         dot = Digraph(comment='Interaction Schematic')
+
+        # Nodes
         dot.node('A', '{0}: {1}-{2}'.format(uni_gene[cplx1_uni], cplx1_start, int(cplx1_from) - 1), shape='box')
         dot.node('B', '{0}: {1}-{2}'.format(uni_gene[cplx1_uni], cplx1_from, cplx1_to), color='yellow', shape='box')
         dot.node('C', '{0}: {1}-{2}'.format(uni_gene[cplx1_uni], int(cplx1_to) + 1, cplx1_end), shape='box')
-
         dot.node('E', '{0} Chain {1}'.format(intrcn_cplx, cplx1_chain), color='yellow', shape='box')
         dot.node('F', '{0} Chain {1}'.format(intrcn_cplx, cplx2_chain), color='cyan', shape='box')
-
         dot.node('G', '{0}: {1}-{2}'.format(uni_gene[cplx2_uni], cplx2_start, int(cplx2_from) - 1), shape='box')
         dot.node('H', '{0}: {1}-{2}'.format(uni_gene[cplx2_uni], cplx2_from, cplx2_to), color='cyan', shape='box')
         dot.node('I', '{0}: {1}-{2}'.format(uni_gene[cplx2_uni], int(cplx2_to) + 1, cplx2_end), shape='box')
@@ -257,6 +258,97 @@ for intrcn in interactions:
         intrcn_schematic_png_path = '{0}/{1}_scheme'.format(PNG_DIR, intrcn_cplx)
         dot.render(intrcn_schematic_png_path, view=False)
         intrcn_schematic_png_path = '{0}.png'.format(intrcn_schematic_png_path)
+
+        # Generate Fusion Effect Schematic Image
+        style = {}
+        style = defaultdict(lambda: '""',style)
+
+        fillcolor = {}
+        fillcolor = defaultdict(lambda: 'lightgrey',fillcolor)
+        # Interaction Complex 1
+        if (uni_gene[cplx1_uni] == cosmic_gene1 and aa_brk[cosmic_gene1] < int(cplx1_from)-1) or \
+                (uni_gene[cplx1_uni] == cosmic_gene2 and aa_brk[cosmic_gene2] < int(cplx1_from)-1):
+            # Node A
+            style['A'] = 'filled'
+            fillcolor['A'] = 'red'
+            # Node B
+            style['B'] = 'filled'
+            fillcolor['B'] = 'pink'
+            # Node C
+            style['C'] = 'filled'
+            fillcolor['C'] = 'pink'
+            # Node E (interaction chain)
+            style['E'] = 'filled'
+            fillcolor['E'] = 'pink'
+        elif (uni_gene[cplx1_uni] == cosmic_gene1 and aa_brk[cosmic_gene1] < int(cplx1_to)) or \
+                (uni_gene[cplx1_uni] == cosmic_gene2 and aa_brk[cosmic_gene2] < int(cplx1_to)):
+            # Node B
+            style['B'] = 'filled'
+            fillcolor['B'] = 'red'
+            # Node C
+            style['C'] = 'filled'
+            fillcolor['C'] = 'pink'
+            # Node E (interaction chain)
+            style['E'] = 'filled'
+            fillcolor['E'] = 'pink'
+        elif (uni_gene[cplx1_uni] == cosmic_gene1 and aa_brk[cosmic_gene1] < int(cplx1_end)) or \
+                (uni_gene[cplx1_uni] == cosmic_gene2 and aa_brk[cosmic_gene2] < int(cplx1_end)):
+            # Node C
+            style['C'] = 'filled'
+            fillcolor['C'] = 'red'
+        # Interaction Complex 2
+        elif (uni_gene[cplx2_uni] == cosmic_gene1 and aa_brk[cosmic_gene1] < int(cplx2_from)-1) or \
+                (uni_gene[cplx2_uni] == cosmic_gene2 and aa_brk[cosmic_gene2] < int(cplx2_from)-1):
+            # Node G
+            style['G'] = 'filled'
+            fillcolor['G'] = 'red'
+            # Node H
+            style['H'] = 'filled'
+            fillcolor['H'] = 'pink'
+            # Node I
+            style['I'] = 'filled'
+            fillcolor['I'] = 'pink'
+            # Node F (interaction chain)
+            style['F'] = 'filled'
+            fillcolor['F'] = 'pink'
+        elif (uni_gene[cplx2_uni] == cosmic_gene1 and aa_brk[cosmic_gene1] < int(cplx2_to)) or \
+                (uni_gene[cplx2_uni] == cosmic_gene2 and aa_brk[cosmic_gene2] < int(cplx2_to)):
+            # Node H
+            style['H'] = 'filled'
+            fillcolor['H'] = 'red'
+            # Node I
+            style['I'] = 'filled'
+            fillcolor['I'] = 'pink'
+            # Node F (interaction chain)
+            style['F'] = 'filled'
+            fillcolor['F'] = 'pink'
+        elif (uni_gene[cplx2_uni] == cosmic_gene1 and aa_brk[cosmic_gene1] < int(cplx2_end)) or \
+                (uni_gene[cplx2_uni] == cosmic_gene2 and aa_brk[cosmic_gene2] < int(cplx2_end)):
+            # Node I
+            style['I'] = 'filled'
+            fillcolor['I'] = 'red'
+
+        dot = Digraph(comment='Fusion Effect Schematic')
+
+        # Nodes
+        dot.node('A', '{0}: {1}-{2}'.format(uni_gene[cplx1_uni], cplx1_start, int(cplx1_from) - 1), shape='box',style=style['A'],fillcolor=fillcolor['A'])
+        dot.node('B', '{0}: {1}-{2}'.format(uni_gene[cplx1_uni], cplx1_from, cplx1_to), color='yellow', shape='box',style=style['B'],fillcolor=fillcolor['B'])
+        dot.node('C', '{0}: {1}-{2}'.format(uni_gene[cplx1_uni], int(cplx1_to) + 1, cplx1_end), shape='box',style=style['C'],fillcolor=fillcolor['C'])
+        dot.node('E', '{0} Chain {1}'.format(intrcn_cplx, cplx1_chain), color='yellow', shape='box',style=style['E'],fillcolor=fillcolor['E'])
+        dot.node('F', '{0} Chain {1}'.format(intrcn_cplx, cplx2_chain), color='cyan', shape='box',style=style['F'],fillcolor=fillcolor['F'])
+        dot.node('G', '{0}: {1}-{2}'.format(uni_gene[cplx2_uni], cplx2_start, int(cplx2_from) - 1), shape='box',style=style['G'],fillcolor=fillcolor['G'])
+        dot.node('H', '{0}: {1}-{2}'.format(uni_gene[cplx2_uni], cplx2_from, cplx2_to), color='cyan', shape='box',style=style['H'],fillcolor=fillcolor['H'])
+        dot.node('I', '{0}: {1}-{2}'.format(uni_gene[cplx2_uni], int(cplx2_to) + 1, cplx2_end), shape='box',style=style['I'],fillcolor=fillcolor['I'])
+
+        # Edges
+        dot.edges(['AB', 'BC', 'GH', 'HI', 'EF'])
+        dot.edge('B', 'E', constraint='false', color='gray')
+        dot.edge('H', 'F', constraint='false', color='gray')
+
+        dot.format = 'png'
+        fusion_schematic_png_path = '{0}/{1}_fusion_scheme'.format(PNG_DIR, intrcn_cplx)
+        dot.render(fusion_schematic_png_path, view=False)
+        fusion_schematic_png_path = '{0}.png'.format(fusion_schematic_png_path)
 
         # Write Markdown File
         md_path = '{0}/{1}.md'.format(MD_DIR, intrcn_cplx)
@@ -316,8 +408,10 @@ for intrcn in interactions:
 
             out_fptr.write('\n## Jmol')
             out_fptr.write('\n![{0} Jmol Rendering]({1})'.format(intrcn_cplx, jmol_png_path))
-            out_fptr.write('\n## Schematic')
-            out_fptr.write('\n![{0} Schematic]({1})'.format(intrcn_cplx,intrcn_schematic_png_path))
+            out_fptr.write('\n## Interaction Schematic')
+            out_fptr.write('\n![{0} Interaction Schematic]({1})'.format(intrcn_cplx,intrcn_schematic_png_path))
+            out_fptr.write('\n## Fusion Effect Schematic')
+            out_fptr.write('\n![{0} Fusion Effect Schematic]({1})'.format(intrcn_cplx,fusion_schematic_png_path))
 
             # Generate PDF
 
