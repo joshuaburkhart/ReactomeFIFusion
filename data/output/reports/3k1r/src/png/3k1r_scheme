@@ -1,0 +1,18 @@
+// Interaction Schematic
+digraph {
+	A [label="USH1G: 1-387" shape=box]
+	B [label="USH1G: 388-461" color=yellow shape=box]
+	C [label="USH1G: 462-461" shape=box]
+	E [label="3k1r Chain B" color=yellow shape=box]
+	F [label="3k1r Chain A" color=cyan shape=box]
+	G [label="USH1G: 1-0" shape=box]
+	H [label="USH1G: 1-192" color=cyan shape=box]
+	I [label="USH1G: 193-552" shape=box]
+		A -> B
+		B -> C
+		G -> H
+		H -> I
+		E -> F
+		B -> E [color=gray constraint=false]
+		H -> F [color=gray constraint=false]
+}
