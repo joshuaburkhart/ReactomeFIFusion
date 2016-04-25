@@ -353,68 +353,132 @@ for intrcn in interactions:
         dot.render(fusion_schematic_png_path, view=False)
         fusion_schematic_png_path = '{0}.png'.format(fusion_schematic_png_path)
 
+        # Report Content Logic
+        fusion_effect = '(No direct effect on interaction {0})'.format(intrcn_cplx)
+        if intrcn_and_fusion_gene == cosmic_gene1:
+            if intrcn_and_fusion_gene == uni_gene[cplx1_uni]:
+                if cplx1_start < gene_brk[cosmic_gene1]:
+                    fusion_effect = 'Chain {0} in leading part of fusion product'.format(cplx1_chain)
+            elif intrcn_and_fusion_gene == uni_gene[cplx2_uni]:
+                if cplx2_start < gene_brk[cosmic_gene1]:
+                    fusion_effect = 'Chain {0} in leading part of fusion product'.format(cplx2_chain)
+        elif intrcn_and_fusion_gene == cosmic_gene2:
+            if intrcn_and_fusion_gene == uni_gene[cplx1_uni]:
+                if cplx1_start > gene_brk[cosmic_gene2]:
+                    fusion_effect = 'Chain {0} in trailing part of fusion product'.format(cplx1_chain)
+            if intrcn_and_fusion_gene == uni_gene[cplx2_uni]:
+                if cplx2_start > gene_brk[cosmic_gene2]:
+                    fusion_effect = 'Chain {0} in trailing part of fusion product'.format(cplx2_chain)
+
+        domain_string = ""
+        for dmn in dmns:
+            domain_string += '<li>{0}: {1}-{2}</li>\n'.format(dmn['domain'], dmn['start'], dmn['end'])
+
+        cplx1_gene = uni_gene[cplx1_uni]
+        cplx2_gene = uni_gene[cplx2_uni]
+        gene1_brk = gene_brk[cosmic_gene1]
+        gene2_brk = gene_brk[cosmic_gene2]
+        aa1_brk = aa_brk[cosmic_gene1]
+        aa2_brk = aa_brk[cosmic_gene2]
+
         # Write Markdown File
         md_path = '{0}/{1}.md'.format(MD_DIR, intrcn_cplx)
         if os.path.exists(md_path):
             os.remove(md_path)
         with open(md_path, 'a') as out_fptr:
             out_fptr.write(
-                '\n# Fusion Event {0}-{1} Affects Interaction {2}'.format(fusion_only_gene, intrcn_and_fusion_gene,
-                                                                          intrcn_cplx))
-            fusion_effect = '(This fusion has no direct effect on interaction {0})'.format(intrcn_cplx)
-            if intrcn_and_fusion_gene == cosmic_gene1:
-                if intrcn_and_fusion_gene == uni_gene[cplx1_uni]:
-                    if cplx1_start < gene_brk[cosmic_gene1]:
-                        fusion_effect = 'Interaction chain {0} in leading part of fusion product'.format(cplx1_chain)
-                elif intrcn_and_fusion_gene == uni_gene[cplx2_uni]:
-                    if cplx2_start < gene_brk[cosmic_gene1]:
-                        fusion_effect = 'Interaction chain {0} in leading part of fusion product'.format(cplx2_chain)
-            elif intrcn_and_fusion_gene == cosmic_gene2:
-                if intrcn_and_fusion_gene == uni_gene[cplx1_uni]:
-                    if cplx1_start > gene_brk[cosmic_gene2]:
-                        fusion_effect = 'Interaction chain {0} in trailing part of fusion product'.format(cplx1_chain)
-                if intrcn_and_fusion_gene == uni_gene[cplx2_uni]:
-                    if cplx2_start > gene_brk[cosmic_gene2]:
-                        fusion_effect = 'Interaction chain {0} in trailing part of fusion product'.format(cplx2_chain)
-            out_fptr.write('\n## {0}'.format(fusion_effect))
-            out_fptr.write('\n## [Interactome3D]({0})'.format(interactome3D_url))
-            out_fptr.write('\n\tInteraction Complex: {0}'.format(intrcn_cplx))
-            out_fptr.write('\n\t{0}'.format(uni_gene[cplx1_uni]))
-            out_fptr.write('\n\t\tChain: {0}'.format(cplx1_chain))
-            out_fptr.write('\n\t\tLength: {0} - {1}'.format(cplx1_start, cplx1_end))
-            out_fptr.write('\n\t\tIncluded in Interaction: {0} - {1}'.format(cplx1_from, cplx1_to))
-            out_fptr.write('\n\t{0}'.format(uni_gene[cplx2_uni]))
-            out_fptr.write('\n\t\tChain: {0}'.format(cplx2_chain))
-            out_fptr.write('\n\t\tLength: {0} - {1}'.format(cplx2_start, cplx2_end))
-            out_fptr.write('\n\t\tIncluded in Interaction: {0} - {1}'.format(cplx2_from, cplx2_to))
-            out_fptr.write('\n## [PDBe]({0})'.format(pdbe_root_url))
-            out_fptr.write('\n\tReaction: {0}'.format(rctn))
-            out_fptr.write('\n\tAuthor Description: {0}'.format(dscrp))
-            out_fptr.write('\n\tCitation: {0}'.format(cit))
-            out_fptr.write('\n## [Pfam]({0})'.format(pfam_url))
-            for dmn in dmns:
-                out_fptr.write('\n\t{0}: {1}-{2}'.format(dmn['domain'], dmn['start'], dmn['end']))
-            out_fptr.write('\n## [COSMIC]({0})'.format(fusion_link))
-            out_fptr.write('\n\tMutation: {0}'.format(mutation_id))
-            out_fptr.write(
-                '\n\tFirst Gene in Fusion: {0}, genomic breakpoint: {1}, AA breakpoint: {2}'
-                    .format(
-                    cosmic_gene1,
-                    gene_brk[cosmic_gene1],
-                    aa_brk[cosmic_gene1]))
-            out_fptr.write(
-                '\n\tSecond Gene in Fusion: {0}, genomic breakpoint: {1}, AA breakpoint: {2}'
-                    .format(
-                    cosmic_gene2,
-                    gene_brk[cosmic_gene2],
-                    aa_brk[cosmic_gene2]))
-
-            out_fptr.write('\n## Jmol')
-            out_fptr.write('\n![{0} Jmol Rendering]({1})'.format(intrcn_cplx, jmol_png_path))
-            out_fptr.write('\n## Interaction Schematic')
-            out_fptr.write('\n![{0} Interaction Schematic]({1})'.format(intrcn_cplx,intrcn_schematic_png_path))
-            out_fptr.write('\n## Fusion Effect Schematic')
-            out_fptr.write('\n![{0} Fusion Effect Schematic]({1})'.format(intrcn_cplx,fusion_schematic_png_path))
+'''\
+<h1 style="text-align:center;">Fusion {fusion_only_gene!s}-{intrcn_and_fusion_gene!s} and Interaction {intrcn_cplx!s}: {fusion_effect!s}</h1>
+<table style="border: 0px;">
+    <tr style="border: 0px;">
+        <td style="width:50%;border: 0px;">
+            <h2 style="text-align:center;">Interaction {intrcn_cplx!s}</h2>
+        </th>
+        <td style="width:50%;border:0px;">
+            <h2 style="text-align:center;">Fusion Effect</h2>
+        </th>
+    </tr>
+    <tr style="border: 0px;width:50%;">
+        <td style="border: 0px;background: white;">
+            <img style="vertical-align:bottom;" src="{intrcn_schematic_png_path!s}"/>
+        </td>
+        <td style="border: 0px;background: white;">
+            <img src="{fusion_schematic_png_path!s}"/>
+        </td>
+    </tr>
+    <tr style="border: 0px;">
+        <td style="background:white;border: 0px;vertical-align:top;width:50%">
+            <a href="{interactome3D_url!s}">
+                <h2 style="text-align:center;">Interactome3D</h2>
+            </a>
+            Interaction Complex: {intrcn_cplx!s}
+            <ul>
+                <li>{cplx1_gene!s}
+                    <ul>
+                        <li>Chain: {cplx1_chain!s}</li>
+                        <li>Length: {cplx1_start!s} - {cplx1_end!s}</li>
+                        <li>Included in Interaction: {cplx1_from!s} - {cplx1_to!s}</li>
+                    </ul>
+                </li>
+                <li>{cplx2_gene!s}
+                    <ul>
+                        <li>Chain: {cplx2_chain!s}</li>
+                        <li>Length: {cplx2_start!s} - {cplx2_end!s}</li>
+                        <li>Included in Interaction: {cplx2_from!s} - {cplx2_to!s}</li>
+                    </ul>
+                </li>
+            </ul>
+        </td>
+        <td style="background:white;border: 0px;">
+            <img src="{jmol_png_path!s}"/>
+        </td>
+    </tr>
+    <tr style="border:0px;">
+        <td style="background:white;border:0px;vertical-align:top;">
+            <a href="{pfam_url!s}">
+                <h2 style="text-align:center;">Pfam</h2>
+            </a>
+            <ul>
+                {domain_string!s}
+            </ul>
+        </td>
+        <td style="background:white;border:0px;vertical-align:top;">
+            <a href="{fusion_link!s}">
+                <h2 style="text-align:center;">COSMIC</h2>
+            </a>
+            Mutation: {mutation_id!s}
+            <ul>
+                <li>First Gene in Fusion: {cosmic_gene1!s}
+                    <ul>
+                        <li>genomic breakpoint: {gene1_brk!s}</li>
+                        <li>AA breakpoint: {aa1_brk!s}</li>
+                    </ul>
+                </li>
+                <li>Second Gene in Fusion: {cosmic_gene2!s}
+                    <ul>
+                        <li>genomic breakpoint: {gene2_brk!s}</li>
+                        <li>AA breakpoint: {aa2_brk!s}</li>
+                    </ul>
+                </li>
+            </ul>
+        </td>
+    </tr>
+    <tr style="border:0px;">
+        <td style="vertical-align:top;background:white;border:0px;">
+            <a href="{pdbe_root_url!s}">
+                <h2 style="text-align:center;">PDBe</h2>
+            </a>
+            <li>Reaction: {rctn!s}</li>
+            <li>Author Description: {dscrp!s}</li>
+            <li>Citation: <a href="{cit!s}">{cit!s}</a>
+            </li>
+        </td>
+        <td style="text-align:right;vertical-align:bottom;border:0px;background:white;">
+            ReactomeFIFusion Generated Report
+        </td>
+    </tr>
+</table>\
+'''.format(**locals()))
 
         # Generate PDF
         with open(md_path, 'r') as in_fptr:
