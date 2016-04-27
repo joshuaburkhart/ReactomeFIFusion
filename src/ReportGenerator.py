@@ -10,6 +10,9 @@ from markdown import markdown,markdownFromFile
 import pdfkit
 
 PFAM_STRING = 'Pfam'
+REPORT_TEMPLATE_DIR = '{0}/templates'.format(os.path.dirname(os.path.realpath(__file__)))
+REPORT_TEMPLATE_FN = '{0}/ReportTemplate.html'.format(REPORT_TEMPLATE_DIR)
+REPORT_TEMPLATE_VIS_DIR = '{0}/vis'.format(REPORT_TEMPLATE_DIR)
 FUSION_INTRCN_RESULTS_FN = '{0}/../data/output/FIInteractFusionEvents.txt'.format(
     os.path.dirname(os.path.realpath(__file__)))
 FUSION_INTRCN_CAPTURE = '^F\s(?P<fusion1>[a-zA-Z0-9]+)-(?P<fusion2>[a-z-A-Z0-9]+),I\s(?P<intrcn1>[a-z-A-Z0-9]+)-(?P<intrcn2>[a-z-A-Z0-9]+),(?P<gene1>[a-zA-Z0-9]+),(?P<gene1uni>[a-zA-Z0-9]+),.+,(?P<gene2>[a-zA-Z0-9]+),(?P<gene2uni>[a-zA-Z0-9]+),.+,Interaction.+'
@@ -380,105 +383,23 @@ for intrcn in interactions:
         gene2_brk = gene_brk[cosmic_gene2]
         aa1_brk = aa_brk[cosmic_gene1]
         aa2_brk = aa_brk[cosmic_gene2]
+        cosm_logo_path = '{0}/cosmic.png'.format(REPORT_TEMPLATE_VIS_DIR)
+        in3D_logo_path = '{0}/interactome3D.png'.format(REPORT_TEMPLATE_VIS_DIR)
+        pdbe_logo_path = '{0}/pdbe.png'.format(REPORT_TEMPLATE_VIS_DIR)
+        pfam_logo_path = '{0}/pfam.png'.format(REPORT_TEMPLATE_VIS_DIR)
+
+        # Load Report Template
+        report_template = ''
+        if os.path.exists(REPORT_TEMPLATE_FN):
+            with open(REPORT_TEMPLATE_FN, 'r') as in_fptr:
+                report_template = in_fptr.read()
 
         # Write Markdown File
         md_path = '{0}/{1}.md'.format(MD_DIR, intrcn_cplx)
         if os.path.exists(md_path):
             os.remove(md_path)
         with open(md_path, 'a') as out_fptr:
-            out_fptr.write(
-'''\
-<h1 style="text-align:center;">Fusion {fusion_only_gene!s}-{intrcn_and_fusion_gene!s} and Interaction {intrcn_cplx!s}: {fusion_effect!s}</h1>
-<table style="border: 0px;">
-    <tr style="border: 0px;">
-        <td style="width:50%;border: 0px;">
-            <h2 style="text-align:center;">Interaction {intrcn_cplx!s}</h2>
-        </th>
-        <td style="width:50%;border:0px;">
-            <h2 style="text-align:center;">Fusion Effect</h2>
-        </th>
-    </tr>
-    <tr style="border: 0px;width:50%;">
-        <td style="border: 0px;background: white;">
-            <img style="vertical-align:bottom;" src="{intrcn_schematic_png_path!s}"/>
-        </td>
-        <td style="border: 0px;background: white;">
-            <img src="{fusion_schematic_png_path!s}"/>
-        </td>
-    </tr>
-    <tr style="border: 0px;">
-        <td style="background:white;border: 0px;vertical-align:top;width:50%">
-            <a href="{interactome3D_url!s}">
-                <h2 style="text-align:center;">Interactome3D</h2>
-            </a>
-            Interaction Complex: {intrcn_cplx!s}
-            <ul>
-                <li>{cplx1_gene!s}
-                    <ul>
-                        <li>Chain: {cplx1_chain!s}</li>
-                        <li>Length: {cplx1_start!s} - {cplx1_end!s}</li>
-                        <li>Included in Interaction: {cplx1_from!s} - {cplx1_to!s}</li>
-                    </ul>
-                </li>
-                <li>{cplx2_gene!s}
-                    <ul>
-                        <li>Chain: {cplx2_chain!s}</li>
-                        <li>Length: {cplx2_start!s} - {cplx2_end!s}</li>
-                        <li>Included in Interaction: {cplx2_from!s} - {cplx2_to!s}</li>
-                    </ul>
-                </li>
-            </ul>
-        </td>
-        <td style="background:white;border: 0px;">
-            <img src="{jmol_png_path!s}"/>
-        </td>
-    </tr>
-    <tr style="border:0px;">
-        <td style="background:white;border:0px;vertical-align:top;">
-            <a href="{pfam_url!s}">
-                <h2 style="text-align:center;">Pfam</h2>
-            </a>
-            <ul>
-                {domain_string!s}
-            </ul>
-        </td>
-        <td style="background:white;border:0px;vertical-align:top;">
-            <a href="{fusion_link!s}">
-                <h2 style="text-align:center;">COSMIC</h2>
-            </a>
-            Mutation: {mutation_id!s}
-            <ul>
-                <li>First Gene in Fusion: {cosmic_gene1!s}
-                    <ul>
-                        <li>genomic breakpoint: {gene1_brk!s}</li>
-                        <li>AA breakpoint: {aa1_brk!s}</li>
-                    </ul>
-                </li>
-                <li>Second Gene in Fusion: {cosmic_gene2!s}
-                    <ul>
-                        <li>genomic breakpoint: {gene2_brk!s}</li>
-                        <li>AA breakpoint: {aa2_brk!s}</li>
-                    </ul>
-                </li>
-            </ul>
-        </td>
-    </tr>
-    <tr style="border:0px;">
-        <td style="vertical-align:top;background:white;border:0px;">
-            <a href="{pdbe_root_url!s}">
-                <h2 style="text-align:center;">PDBe</h2>
-            </a>
-            <li>Reaction: {rctn!s}</li>
-            <li>Author Description: {dscrp!s}</li>
-            <li>Citation: <a href="{cit!s}">{cit!s}</a>
-            </li>
-        </td>
-        <td style="text-align:right;vertical-align:bottom;border:0px;background:white;">
-            ReactomeFIFusion Generated Report
-        </td>
-    </tr>
-</table>\
-'''.format(**locals()))
+            out_fptr.write(report_template.format(**locals()))
 
         # Generate PDF
         with open(md_path, 'r') as in_fptr:
