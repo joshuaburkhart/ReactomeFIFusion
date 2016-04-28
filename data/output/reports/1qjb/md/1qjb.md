@@ -1,1 +1,1 @@
-ERROR: "IndexError" exception when attempting to generate a report for {'intrcn_only_gene': 'YWHAZ', 'fusion_only_gene': 'FAM22B', 'YWHAZ': 'P63104', 'YWHAE': 'P62258', 'intrcn_and_fusion_gene': 'YWHAE'}: list index out of range
+ERROR: "IndexError" exception when attempting to generate a report for {'YWHAZ': 'P63104', 'intrcn': 'YWHAE-YWHAZ', 'intrcn_and_fusion_gene': 'YWHAE', 'YWHAE': 'P62258', 'fusion': 'YWHAE-FAM22B', 'fusion_only_gene': 'FAM22B', 'intrcn_only_gene': 'YWHAZ'}: list index out of range

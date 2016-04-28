@@ -15,11 +15,13 @@ REPORT_TEMPLATE_FN = '{0}/ReportTemplate.html'.format(REPORT_TEMPLATE_DIR)
 REPORT_TEMPLATE_VIS_DIR = '{0}/vis'.format(REPORT_TEMPLATE_DIR)
 FUSION_INTRCN_RESULTS_FN = '{0}/../data/output/FIInteractFusionEvents.txt'.format(
     os.path.dirname(os.path.realpath(__file__)))
-FUSION_INTRCN_CAPTURE = '^F\s(?P<fusion1>[a-zA-Z0-9]+)-(?P<fusion2>[a-z-A-Z0-9]+),I\s(?P<intrcn1>[a-z-A-Z0-9]+)-(?P<intrcn2>[a-z-A-Z0-9]+),(?P<gene1>[a-zA-Z0-9]+),(?P<gene1uni>[a-zA-Z0-9]+),.+,(?P<gene2>[a-zA-Z0-9]+),(?P<gene2uni>[a-zA-Z0-9]+),.+,Interaction.+'
+INTERACTOME_DETAIL_CAPTURE = '^F\s(?P<fusion1>[a-zA-Z0-9]+)-(?P<fusion2>[a-z-A-Z0-9]+),I\s(?P<intrcn1>[a-z-A-Z0-9]+)-(?P<intrcn2>[a-z-A-Z0-9]+),(?P<gene1>[a-zA-Z0-9]+),(?P<gene1uni>[a-zA-Z0-9]+),.+,(?P<gene2>[a-zA-Z0-9]+),(?P<gene2uni>[a-zA-Z0-9]+),.+,Interaction.+'
+FUSION_INTRCN_ONLY_CAPTURE = '^F\s(?P<fusion>[a-zA-Z0-9]+-[a-z-A-Z0-9]+),I\s(?P<intrcn>[a-z-A-Z0-9]+-[a-z-A-Z0-9]+),.+'
 
 # Parse Input
 
 interactions = list()
+f_i_dict = dict()
 
 if os.path.isfile(FUSION_INTRCN_RESULTS_FN):
     print('reading {0}...'.format(FUSION_INTRCN_RESULTS_FN))
@@ -28,7 +30,13 @@ if os.path.isfile(FUSION_INTRCN_RESULTS_FN):
         line = in_fptr.readline()
         if not line:
             break
-        match = re.match(FUSION_INTRCN_CAPTURE, line)
+        match = re.match(FUSION_INTRCN_ONLY_CAPTURE, line)
+        if match:
+            f = match.group('fusion')
+            i = match.group('intrcn')
+            print('adding {0} to {1}...'.format(i,f))
+            f_i_dict[f] = f_i_dict[f].append(i) if len(f_i_dict.get(f,'')) > 0 else [i]
+        match = re.match(INTERACTOME_DETAIL_CAPTURE, line)
         if match:
             intrcn = dict()
 
@@ -47,6 +55,8 @@ if os.path.isfile(FUSION_INTRCN_RESULTS_FN):
             fusion_set = {match.group('fusion1'), match.group('fusion2')}
 
             # store map each gene to fusion event
+            intrcn['fusion'] = f
+            intrcn['intrcn'] = i
             intrcn['fusion_only_gene'] = fusion_set.difference(intrcn_set).pop() if len(
                 fusion_set) > 1 else fusion_set.pop()
             intrcn['intrcn_only_gene'] = intrcn_set.difference(fusion_set).pop() if len(
@@ -356,27 +366,6 @@ for intrcn in interactions:
         dot.render(fusion_schematic_png_path, view=False)
         fusion_schematic_png_path = '{0}.png'.format(fusion_schematic_png_path)
 
-        # Report Content Logic
-        fusion_effect = '(No direct effect on interaction {0})'.format(intrcn_cplx)
-        if intrcn_and_fusion_gene == cosmic_gene1:
-            if intrcn_and_fusion_gene == uni_gene[cplx1_uni]:
-                if cplx1_start < gene_brk[cosmic_gene1]:
-                    fusion_effect = 'Chain {0} in leading part of fusion product'.format(cplx1_chain)
-            elif intrcn_and_fusion_gene == uni_gene[cplx2_uni]:
-                if cplx2_start < gene_brk[cosmic_gene1]:
-                    fusion_effect = 'Chain {0} in leading part of fusion product'.format(cplx2_chain)
-        elif intrcn_and_fusion_gene == cosmic_gene2:
-            if intrcn_and_fusion_gene == uni_gene[cplx1_uni]:
-                if cplx1_start > gene_brk[cosmic_gene2]:
-                    fusion_effect = 'Chain {0} in trailing part of fusion product'.format(cplx1_chain)
-            if intrcn_and_fusion_gene == uni_gene[cplx2_uni]:
-                if cplx2_start > gene_brk[cosmic_gene2]:
-                    fusion_effect = 'Chain {0} in trailing part of fusion product'.format(cplx2_chain)
-
-        domain_string = ""
-        for dmn in dmns:
-            domain_string += '<li>{0}: {1}-{2}</li>\n'.format(dmn['domain'], dmn['start'], dmn['end'])
-
         cplx1_gene = uni_gene[cplx1_uni]
         cplx2_gene = uni_gene[cplx2_uni]
         gene1_brk = gene_brk[cosmic_gene1]
@@ -387,6 +376,74 @@ for intrcn in interactions:
         in3D_logo_path = '{0}/interactome3D.png'.format(REPORT_TEMPLATE_VIS_DIR)
         pdbe_logo_path = '{0}/pdbe.png'.format(REPORT_TEMPLATE_VIS_DIR)
         pfam_logo_path = '{0}/pfam.png'.format(REPORT_TEMPLATE_VIS_DIR)
+        causal_fusion = intrcn['fusion']
+        this_intrcn = intrcn['intrcn']
+
+        # Report Content Logic
+        fusion_effect = '(No direct effect on interaction {0})'.format(intrcn_cplx)
+        valid_interaction = False
+        if intrcn_and_fusion_gene == cosmic_gene1:
+            fus_part = 'leading'
+            if intrcn_and_fusion_gene == uni_gene[cplx1_uni] and cplx1_start < gene_brk[cosmic_gene1]:
+                valid_interaction = True
+                cplx_chain = cplx1_chain
+                cplx_gene = cplx1_gene
+            if intrcn_and_fusion_gene == uni_gene[cplx2_uni] and cplx2_start < gene_brk[cosmic_gene1]:
+                valid_interaction = True
+                cplx_chain = cplx2_chain
+                cplx_gene = cplx2_gene
+        elif intrcn_and_fusion_gene == cosmic_gene2:
+            fus_part = 'trailing'
+            if intrcn_and_fusion_gene == uni_gene[cplx1_uni] and cplx1_start > gene_brk[cosmic_gene2]:
+                valid_interaction = True
+                cplx_chain = cplx1_chain
+                cplx_gene = cplx1_gene
+            if intrcn_and_fusion_gene == uni_gene[cplx2_uni] and cplx2_start > gene_brk[cosmic_gene2]:
+                valid_interaction = True
+                cplx_chain = cplx2_chain
+                cplx_gene = cplx2_gene
+        if valid_interaction:
+            fusion_effect = 'Interaction complex {0} chain {1}, from gene "{2}", has been found in the {3} part of the {4} fusion product'.format(
+                intrcn_cplx,
+                cplx_chain,
+                cplx_gene,
+                fus_part,
+                causal_fusion)
+
+        # Pfam Domain Logic
+        domain_string = ""
+        for dmn in dmns:
+            dmn_note = ''
+            style1 = ''
+            style2 = ''
+            if valid_interaction and ((intrcn_and_fusion_gene == cosmic_gene1
+                                       and int(dmn['start']) > aa_brk[cosmic_gene1])
+                                    or (intrcn_and_fusion_gene == cosmic_gene2
+                                        and int(dmn['end']) < aa_brk[cosmic_gene2])):
+                dmn_note = ' <- Pfam domain included in fusion product'
+                style1 = '<b>'
+                style2 = '</b>'
+            if valid_interaction and ((intrcn_and_fusion_gene == cosmic_gene1
+                                       and int(dmn['start']) < aa_brk[cosmic_gene1]
+                                       and int(dmn['end']) > aa_brk[cosmic_gene1])
+                                      or (intrcn_and_fusion_gene == cosmic_gene2
+                                       and int(dmn['end']) > aa_brk[cosmic_gene2]
+                                       and int(dmn['start']) < aa_brk[cosmic_gene2])):
+                dmn_note = ' <- Pfam domain split by fusion'
+                style1 = '<b><i>'
+                style2 = '</i></b>'
+            domain_string += '<li>{3}{0}: {1}-{2}{4}{5}</li>\n'.format(dmn['domain'], dmn['start'], dmn['end'],style1,style2,dmn_note)
+
+        # Other Interactions Affected
+        intrcn_string = 'None'
+        if f_i_dict.get(causal_fusion) is not None:
+            intrcn_string = ""
+            other_intrcns = [x for x in f_i_dict.get(causal_fusion) if x != this_intrcn]
+            if len(other_intrcns) > 0:
+                for other_intrcn in other_intrcns:
+                    intrcn_string += '<li>{0}</li>\n'.format(other_intrcn)
+            else:
+                intrcn_string = 'None'
 
         # Load Report Template
         report_template = ''
@@ -395,28 +452,28 @@ for intrcn in interactions:
                 report_template = in_fptr.read()
 
         # Write Markdown File
-        md_path = '{0}/{1}.md'.format(MD_DIR, intrcn_cplx)
-        if os.path.exists(md_path):
-            os.remove(md_path)
-        with open(md_path, 'a') as out_fptr:
+        html_embedded_md_path = '{0}/{1}.md'.format(MD_DIR, intrcn_cplx)
+        if os.path.exists(html_embedded_md_path):
+            os.remove(html_embedded_md_path)
+        with open(html_embedded_md_path, 'a') as out_fptr:
             out_fptr.write(report_template.format(**locals()))
 
         # Generate PDF
-        with open(md_path, 'r') as in_fptr:
-            html_text = markdown(in_fptr.read(), output_format='html4')
+        with open(html_embedded_md_path, 'r') as in_fptr:
+            html_text = in_fptr.read()
 
         pdfkit.from_string(html_text, '{0}/{1}.pdf'.format(PDF_DIR,intrcn_cplx))
 
         # Generate HTML
-        markdownFromFile(md_path,'{0}/{1}.html'.format(HTML_DIR,intrcn_cplx))
+        markdownFromFile(html_embedded_md_path, '{0}/{1}.html'.format(HTML_DIR, intrcn_cplx))
 
     except IndexError as ie:
         err_msg = 'ERROR: "IndexError" exception when attempting to generate a report for {0}: {1}'.format(intrcn, ie)
         print(err_msg)
 
         # Attempt to write Markdown File
-        md_path = '{0}/{1}.md'.format(MD_DIR, intrcn_cplx)
-        if os.path.exists(md_path):
-            os.remove(md_path)
-        with open(md_path, 'a') as out_fptr:
+        html_embedded_md_path = '{0}/{1}.md'.format(MD_DIR, intrcn_cplx)
+        if os.path.exists(html_embedded_md_path):
+            os.remove(html_embedded_md_path)
+        with open(html_embedded_md_path, 'a') as out_fptr:
             out_fptr.write(err_msg)
