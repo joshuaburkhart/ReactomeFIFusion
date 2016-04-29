@@ -1,8 +1,8 @@
 from lxml import html
 import requests
+import sys
 import urllib
 import os
-import codecs
 import re
 from graphviz import Digraph
 from collections import defaultdict
@@ -35,7 +35,7 @@ if os.path.isfile(FUSION_INTRCN_RESULTS_FN):
             f = match.group('fusion')
             i = match.group('intrcn')
             print('adding {0} to {1}...'.format(i,f))
-            f_i_dict[f] = f_i_dict[f].append(i) if len(f_i_dict.get(f,'')) > 0 else [i]
+            f_i_dict[f] = f_i_dict[f] + [i] if f_i_dict.get(f) is not None else [i]
         match = re.match(INTERACTOME_DETAIL_CAPTURE, line)
         if match:
             intrcn = dict()
@@ -468,7 +468,7 @@ for intrcn in interactions:
         markdownFromFile(html_embedded_md_path, '{0}/{1}.html'.format(HTML_DIR, intrcn_cplx))
 
     except IndexError as ie:
-        err_msg = 'ERROR: "IndexError" exception when attempting to generate a report for {0}: {1}'.format(intrcn, ie)
+        err_msg = 'ERROR: "IndexError" exception when attempting to generate a report for {0}: {1}: {2}'.format(intrcn, ie, sys.exec_traceback)
         print(err_msg)
 
         # Attempt to write Markdown File
