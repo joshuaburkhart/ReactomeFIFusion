@@ -1,0 +1,77 @@
+<!--?xml version="1.0" encoding="utf-8"?-->
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<h2 style="text-align: left;">Fusion {causal_fusion!s} and Interaction {cplx1_gene!s}-{cplx2_gene!s} (Complex {intrcn_cplx!s}):</h2>
+<h4 style="text-align: left;">{fusion_effect!s}</h4>
+<div class="divTable">
+	<div class="divTableBody">
+		<div class="divTableRow">
+			<div class="divTableCell">
+				<h2 style="text-align: center;">Interaction {intrcn_cplx!s}</h2>
+			</div>
+			<div class="divTableCell">
+				<h2 style="text-align: center;">Fusion Effect</h2>
+			</div>
+		</div>
+		<div class="divTableRow">
+			<div class="divTableCell"><img style="vertical-align: bottom;" src="{intrcn_schematic_png_path!s}" alt="" /></div>
+			<div class="divTableCell"><img src="{fusion_schematic_png_path!s}" alt="" /></div>
+		</div>
+		<div class="divTableRow">
+			<div class="divTableCell">
+				<div><a href="{interactome3D_url!s}"> <img src="{in3D_logo_path!s}" alt="Interactome3D" /> </a>
+					<div>Complex: {intrcn_cplx!s} <br /> {cplx1_gene!s}
+						<ul>
+							<li>Chain: {cplx1_chain!s}</li>
+							<li>Length: {cplx1_start!s} - {cplx1_end!s}</li>
+							<li>Included in Interaction: {cplx1_from!s} - {cplx1_to!s}</li>
+						</ul>
+						{cplx2_gene!s}
+						<ul>
+							<li>Chain: {cplx2_chain!s}</li>
+							<li>Length: {cplx2_start!s} - {cplx2_end!s}</li>
+							<li>Included in Interaction: {cplx2_from!s} - {cplx2_to!s}</li>
+						</ul>
+					</div>
+				</div>
+				<div><a href="{pfam_url!s}"> <img src="{pfam_logo_path!s}" alt="Pfam" /> </a>
+					<div>
+						<ul>{domain_string!s}</ul>
+					</div>
+				</div>
+				<div><a href="{fusion_link!s}"> <img src="{cosm_logo_path!s}" alt="COSMIC" /> </a>
+					<div>Mutation: {mutation_id!s}
+						<ul>
+							<li>{cosmic_gene1!s} genomic breakpoint: {gene1_brk!s}</li>
+							<li>{cosmic_gene1!s} AA breakpoint: {aa1_brk!s}</li>
+							<li>{cosmic_gene2!s} genomic breakpoint: {gene2_brk!s}</li>
+							<li>{cosmic_gene2!s} AA breakpoint: {aa2_brk!s}</li>
+						</ul>
+					</div>
+				</div>
+				<div>Other interactions affected by fusion {causal_fusion!s}
+					<ul>{intrcn_string!s}</ul>
+				</div>
+			</div>
+			<div class="divTableCell">
+				<div><img src="{jmol_png_path!s}" alt="Jmol Rendering of {intrcn_cplx!s}" /></div>
+				<div style="margin-top: 10px;"><a href="{pdbe_root_url!s}"> <img src="{pdbe_logo_path!s}" alt="PDBe" /> </a>
+					<div>Reaction:
+						<ul>
+							<li>{rctn!s}</li>
+						</ul>
+						Author Description:
+						<ul>
+							<li>{dscrp!s}</li>
+						</ul>
+						Citation:
+						<ul>
+							<li><a href="{cit!s}">{cit!s}</a></li>
+						</ul>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<p>&nbsp;</p>
