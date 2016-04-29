@@ -1,4 +1,4 @@
-# ReactomePPI
+# ReactomeFIFusion [![DOI](https://zenodo.org/badge/19044/joshuaburkhart/ReactomeFIFusion.svg)](https://zenodo.org/badge/latestdoi/19044/joshuaburkhart/ReactomeFIFusion)
 
 ## Proposed Architecture
 ![alt tag](./vis/ProposedReactomePPIArchitecture.png)
