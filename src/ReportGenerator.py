@@ -1,6 +1,7 @@
 from lxml import html
 import requests
 import sys
+import traceback
 import urllib
 import os
 import re
@@ -12,6 +13,7 @@ import pdfkit
 PFAM_STRING = 'Pfam'
 REPORT_TEMPLATE_DIR = '{0}/templates'.format(os.path.dirname(os.path.realpath(__file__)))
 REPORT_TEMPLATE_FN = '{0}/ReportTemplate.html'.format(REPORT_TEMPLATE_DIR)
+#CSS_FN = '{0}/ReportTemplate_NoTable.css'.format(REPORT_TEMPLATE_DIR)
 REPORT_TEMPLATE_VIS_DIR = '{0}/vis'.format(REPORT_TEMPLATE_DIR)
 FUSION_INTRCN_RESULTS_FN = '{0}/../data/output/FIInteractFusionEvents.txt'.format(
     os.path.dirname(os.path.realpath(__file__)))
@@ -462,13 +464,14 @@ for intrcn in interactions:
         with open(html_embedded_md_path, 'r') as in_fptr:
             html_text = in_fptr.read()
 
-        pdfkit.from_string(html_text, '{0}/{1}.pdf'.format(PDF_DIR,intrcn_cplx))
+        pdfkit.from_string(html_text, '{0}/{1}.pdf'.format(PDF_DIR, intrcn_cplx))
+        #pdfkit.from_file(html_embedded_md_path, '{0}/{1}.pdf'.format(PDF_DIR,intrcn_cplx), css=CSS_FN)
 
         # Generate HTML
         markdownFromFile(html_embedded_md_path, '{0}/{1}.html'.format(HTML_DIR, intrcn_cplx))
 
     except IndexError as ie:
-        err_msg = 'ERROR: "IndexError" exception when attempting to generate a report for {0}: {1}: {2}'.format(intrcn, ie, sys.exec_traceback)
+        err_msg = 'ERROR: "IndexError" exception\n\twhen attempting to generate a report for\n\t{0}: {1}'.format(intrcn, ie)
         print(err_msg)
 
         # Attempt to write Markdown File

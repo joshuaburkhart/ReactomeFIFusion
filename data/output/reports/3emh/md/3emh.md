@@ -76,7 +76,8 @@
                     	<div>
                     	Other interactions affected by fusion KMT2A-CREBBP
 						<ul>
-                    		None
+                    		<li>CREBBP-ZFHX3</li>
+
                 		</ul>
                 		</div>
 					</td>
