@@ -3,7 +3,9 @@ import requests
 import urllib
 import os
 import codecs
+import sys
 import re
+from graphviz import Graph
 from graphviz import Digraph
 from collections import defaultdict
 from markdown import markdown,markdownFromFile
@@ -45,25 +47,31 @@ if os.path.isfile(FUSION_INTRCN_RESULTS_FN):
     in_fptr.close()
 
     # Generate Fusion-Interaction Mapping Image
-    dot = Digraph(comment='Fusion-Interaction Mapping')
+    dot = Digraph(comment='Fusion-Interaction Mapping',format='png',graph_attr={'pack':'true','packmode':'array_u10'})
 
     # Nodes
+    count = 1
     for fusion, intrcn_list in f_i_dict.items():
         print('fusion: {0}'.format(fusion))
         print('intrcn_list: {0}'.format(intrcn_list))
-        dot.node(fusion,fusion,style='filled',fillcolor='red')
+        fus = Digraph(name=fusion,engine='dot',graph_attr={'sortv':'{0}'.format(count)})
+        fus.node(fusion,fusion,style='filled',fillcolor='red')
         for intrcn in intrcn_list:
             print('intrcn: {0}'.format(intrcn))
             if intrcn in rep_i_set:
-                dot.node(intrcn,intrcn,shape='box',style='filled',fillcolor='yellow',color='cyan')
+                fus.node(intrcn,intrcn,shape='box',style='filled',fillcolor='yellow',color='cyan')
             else:
-                dot.node(intrcn,intrcn,style='filled',fillcolor='gray')
+                fus.node(intrcn,intrcn,style='filled',fillcolor='gray')
             # Edges
-            dot.edge(fusion,intrcn)
+            fus.edge(fusion,intrcn)
+        dot.subgraph(fus)
+        count = count + 1
+        print(count)
 
-    dot.format = 'png'
+    #dot.format = 'png'
     fusion_intrcn_mapping_png_path = '{0}/fusion_intrcn_mapping'.format(PNG_DIR)
     dot.render(fusion_intrcn_mapping_png_path,view=False)
+    os.system('ccomps -x {0} | dot | gvpack -array10 | neato -Tpng -n2 -o {0}_sep.png'.format(fusion_intrcn_mapping_png_path))
     fusion_intrcn_mapping_png_path = '{0}.png'.format(fusion_intrcn_mapping_png_path)
 
     print('fusion-interaction mapping image has been written to {0}.'.format(fusion_intrcn_mapping_png_path))
