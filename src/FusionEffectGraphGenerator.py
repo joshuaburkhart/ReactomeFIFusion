@@ -19,7 +19,7 @@ FUSION_INTRCN_RESULTS_FN = '{0}/../data/output/FIInteractFusionEvents.txt'.forma
     os.path.dirname(os.path.realpath(__file__)))
 INTERACTOME_DETAIL_CAPTURE = '^F\s(?P<fusion1>[a-zA-Z0-9]+)-(?P<fusion2>[a-z-A-Z0-9]+),I\s(?P<intrcn1>[a-z-A-Z0-9]+)-(?P<intrcn2>[a-z-A-Z0-9]+),(?P<gene1>[a-zA-Z0-9]+),(?P<gene1uni>[a-zA-Z0-9]+),.+,(?P<gene2>[a-zA-Z0-9]+),(?P<gene2uni>[a-zA-Z0-9]+),.+,Interaction.+'
 FUSION_INTRCN_ONLY_CAPTURE = '^F\s(?P<fusion>[a-zA-Z0-9]+-[a-z-A-Z0-9]+),I\s(?P<intrcn>[a-z-A-Z0-9]+-[a-z-A-Z0-9]+),.+'
-PNG_DIR = '{0}/../data/output/vis/png'.format(os.path.dirname(os.path.realpath(__file__)))
+SVG_DIR = '{0}/../data/output/vis/svg'.format(os.path.dirname(os.path.realpath(__file__)))
 
 # Parse Input
 f_i_dict = dict()
@@ -47,31 +47,29 @@ if os.path.isfile(FUSION_INTRCN_RESULTS_FN):
     in_fptr.close()
 
     # Generate Fusion-Interaction Mapping Image
-    dot = Digraph(comment='Fusion-Interaction Mapping',format='png',graph_attr={'pack':'true','packmode':'array_u10'})
+    dot = Digraph(comment='Fusion-Interaction Mapping',format='svg')
 
     # Nodes
-    count = 1
     for fusion, intrcn_list in f_i_dict.items():
         print('fusion: {0}'.format(fusion))
         print('intrcn_list: {0}'.format(intrcn_list))
-        fus = Digraph(name=fusion,engine='dot',graph_attr={'sortv':'{0}'.format(count)})
+        fus = Digraph(name=fusion)
         fus.node(fusion,fusion,style='filled',fillcolor='red')
         for intrcn in intrcn_list:
             print('intrcn: {0}'.format(intrcn))
             if intrcn in rep_i_set:
                 fus.node(intrcn,intrcn,shape='box',style='filled',fillcolor='yellow',color='cyan')
             else:
-                fus.node(intrcn,intrcn,style='filled',fillcolor='gray')
+                fus.node(intrcn,intrcn,shape='box',style='filled',fillcolor='gray')
             # Edges
             fus.edge(fusion,intrcn)
         dot.subgraph(fus)
-        count = count + 1
-        print(count)
 
-    #dot.format = 'png'
-    fusion_intrcn_mapping_png_path = '{0}/fusion_intrcn_mapping'.format(PNG_DIR)
-    dot.render(fusion_intrcn_mapping_png_path,view=False)
-    os.system('ccomps -x {0} | dot | gvpack -array10 | neato -Tpng -n2 -o {0}_sep.png'.format(fusion_intrcn_mapping_png_path))
-    fusion_intrcn_mapping_png_path = '{0}.png'.format(fusion_intrcn_mapping_png_path)
+    fusion_intrcn_mapping_svg_path = '{0}/fusion_intrcn_mapping'.format(SVG_DIR)
+    dot.render(fusion_intrcn_mapping_svg_path,view=False)
+    os.system('ccomps -x {0} | dot | gvpack -array15 | neato -Tsvg -n2 -o {0}_sep.svg'.format(fusion_intrcn_mapping_svg_path))
+    fusion_intrcn_mapping_svg_path = '{0}.svg'.format(fusion_intrcn_mapping_svg_path)
 
-    print('fusion-interaction mapping image has been written to {0}.'.format(fusion_intrcn_mapping_png_path))
+    #Note: Use `convert -density 1200 -resize 200x200 source.svg target.png` to redraw as png
+
+    print('fusion-interaction mapping image has been written to {0}.'.format(fusion_intrcn_mapping_svg_path))

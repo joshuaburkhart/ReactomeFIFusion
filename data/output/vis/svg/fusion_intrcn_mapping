@@ -1,0 +1,715 @@
+// Fusion-Interaction Mapping
+digraph {
+	subgraph "KMT2A-SEPT2" {
+		"KMT2A-SEPT2" [label="KMT2A-SEPT2" fillcolor=red style=filled]
+		"SEPT2-YWHAG" [label="SEPT2-YWHAG" fillcolor=gray shape=box style=filled]
+			"KMT2A-SEPT2" -> "SEPT2-YWHAG"
+	}
+	subgraph "BBS9-PKD1L1" {
+		"BBS9-PKD1L1" [label="BBS9-PKD1L1" fillcolor=red style=filled]
+		"BBS9-RAB3IP" [label="BBS9-RAB3IP" fillcolor=gray shape=box style=filled]
+			"BBS9-PKD1L1" -> "BBS9-RAB3IP"
+	}
+	subgraph "NCOA4-RET" {
+		"NCOA4-RET" [label="NCOA4-RET" fillcolor=red style=filled]
+		"NCOA4-ZBTB33" [label="NCOA4-ZBTB33" fillcolor=gray shape=box style=filled]
+			"NCOA4-RET" -> "NCOA4-ZBTB33"
+	}
+	subgraph "EWSR1-CREB1" {
+		"EWSR1-CREB1" [label="EWSR1-CREB1" fillcolor=red style=filled]
+		"CREB1-ZBTB17" [label="CREB1-ZBTB17" fillcolor=gray shape=box style=filled]
+			"EWSR1-CREB1" -> "CREB1-ZBTB17"
+	}
+	subgraph "KMT2A-GAS7" {
+		"KMT2A-GAS7" [label="KMT2A-GAS7" fillcolor=red style=filled]
+		"GAS7-WAS" [label="GAS7-WAS" fillcolor=gray shape=box style=filled]
+			"KMT2A-GAS7" -> "GAS7-WAS"
+	}
+	subgraph "KMT2A-CREBBP" {
+		"KMT2A-CREBBP" [label="KMT2A-CREBBP" fillcolor=red style=filled]
+		"KMT2A-WDR5" [label="KMT2A-WDR5" color=cyan fillcolor=yellow shape=box style=filled]
+			"KMT2A-CREBBP" -> "KMT2A-WDR5"
+		"CREBBP-ZFHX3" [label="CREBBP-ZFHX3" fillcolor=gray shape=box style=filled]
+			"KMT2A-CREBBP" -> "CREBBP-ZFHX3"
+	}
+	subgraph "NACC2-NTRK2" {
+		"NACC2-NTRK2" [label="NACC2-NTRK2" fillcolor=red style=filled]
+		"NTRK2-UBC" [label="NTRK2-UBC" fillcolor=gray shape=box style=filled]
+			"NACC2-NTRK2" -> "NTRK2-UBC"
+	}
+	subgraph "FUS-ERG" {
+		"FUS-ERG" [label="FUS-ERG" fillcolor=red style=filled]
+		"ERG-XRCC5" [label="ERG-XRCC5" fillcolor=gray shape=box style=filled]
+			"FUS-ERG" -> "ERG-XRCC5"
+	}
+	subgraph "ZC3H7B-BCOR" {
+		"ZC3H7B-BCOR" [label="ZC3H7B-BCOR" fillcolor=red style=filled]
+		"BCOR-PPARG" [label="BCOR-PPARG" fillcolor=gray shape=box style=filled]
+			"ZC3H7B-BCOR" -> "BCOR-PPARG"
+	}
+	subgraph "GOPC-ROS1" {
+		"GOPC-ROS1" [label="GOPC-ROS1" fillcolor=red style=filled]
+		"GOPC-NUP62" [label="GOPC-NUP62" fillcolor=gray shape=box style=filled]
+			"GOPC-ROS1" -> "GOPC-NUP62"
+	}
+	subgraph "NUP107-LGR5" {
+		"NUP107-LGR5" [label="NUP107-LGR5" fillcolor=red style=filled]
+		"LGR5-UBC" [label="LGR5-UBC" fillcolor=gray shape=box style=filled]
+			"NUP107-LGR5" -> "LGR5-UBC"
+		"NUP107-ZWILCH" [label="NUP107-ZWILCH" fillcolor=gray shape=box style=filled]
+			"NUP107-LGR5" -> "NUP107-ZWILCH"
+	}
+	subgraph "EML4-ALK" {
+		"EML4-ALK" [label="EML4-ALK" fillcolor=red style=filled]
+		"EML4-PIK3CG" [label="EML4-PIK3CG" fillcolor=gray shape=box style=filled]
+			"EML4-ALK" -> "EML4-PIK3CG"
+	}
+	subgraph "NAB2-STAT6" {
+		"NAB2-STAT6" [label="NAB2-STAT6" fillcolor=red style=filled]
+		"STAT6-UBC" [label="STAT6-UBC" fillcolor=gray shape=box style=filled]
+			"NAB2-STAT6" -> "STAT6-UBC"
+	}
+	subgraph "KMT2A-ARHGAP26" {
+		"KMT2A-ARHGAP26" [label="KMT2A-ARHGAP26" fillcolor=red style=filled]
+		"ARHGAP26-RND3" [label="ARHGAP26-RND3" fillcolor=gray shape=box style=filled]
+			"KMT2A-ARHGAP26" -> "ARHGAP26-RND3"
+	}
+	subgraph "INTS4-GAB2" {
+		"INTS4-GAB2" [label="INTS4-GAB2" fillcolor=red style=filled]
+		"GAB2-ZAP70" [label="GAB2-ZAP70" fillcolor=gray shape=box style=filled]
+			"INTS4-GAB2" -> "GAB2-ZAP70"
+	}
+	subgraph "UBE2L3-KRAS" {
+		"UBE2L3-KRAS" [label="UBE2L3-KRAS" fillcolor=red style=filled]
+		"UBE2L3-YY1" [label="UBE2L3-YY1" fillcolor=gray shape=box style=filled]
+			"UBE2L3-KRAS" -> "UBE2L3-YY1"
+		"KRAS-YWHAZ" [label="KRAS-YWHAZ" fillcolor=gray shape=box style=filled]
+			"UBE2L3-KRAS" -> "KRAS-YWHAZ"
+	}
+	subgraph "MSN-ALK" {
+		"MSN-ALK" [label="MSN-ALK" fillcolor=red style=filled]
+		"MSN-VCAM1" [label="MSN-VCAM1" fillcolor=gray shape=box style=filled]
+			"MSN-ALK" -> "MSN-VCAM1"
+	}
+	subgraph "TRIM24-RET" {
+		"TRIM24-RET" [label="TRIM24-RET" fillcolor=red style=filled]
+		"TRIM24-ZNF473" [label="TRIM24-ZNF473" fillcolor=gray shape=box style=filled]
+			"TRIM24-RET" -> "TRIM24-ZNF473"
+	}
+	subgraph "FHIT-HMGA2" {
+		"FHIT-HMGA2" [label="FHIT-HMGA2" fillcolor=red style=filled]
+		"FHIT-FHIT" [label="FHIT-FHIT" fillcolor=gray shape=box style=filled]
+			"FHIT-HMGA2" -> "FHIT-FHIT"
+	}
+	subgraph "CDKN2D-WDFY2" {
+		"CDKN2D-WDFY2" [label="CDKN2D-WDFY2" fillcolor=red style=filled]
+		"CDKN2D-TP53" [label="CDKN2D-TP53" fillcolor=gray shape=box style=filled]
+			"CDKN2D-WDFY2" -> "CDKN2D-TP53"
+	}
+	subgraph "KMT2A-ARHGEF12" {
+		"KMT2A-ARHGEF12" [label="KMT2A-ARHGEF12" fillcolor=red style=filled]
+		"ARHGEF12-SEMA4D" [label="ARHGEF12-SEMA4D" fillcolor=gray shape=box style=filled]
+			"KMT2A-ARHGEF12" -> "ARHGEF12-SEMA4D"
+	}
+	subgraph "KLK2-ETV1" {
+		"KLK2-ETV1" [label="KLK2-ETV1" fillcolor=red style=filled]
+		"KLK2-MMP8" [label="KLK2-MMP8" fillcolor=gray shape=box style=filled]
+			"KLK2-ETV1" -> "KLK2-MMP8"
+	}
+	subgraph "KMT2A-ELL" {
+		"KMT2A-ELL" [label="KMT2A-ELL" fillcolor=red style=filled]
+		"ELL-TCEB3" [label="ELL-TCEB3" fillcolor=gray shape=box style=filled]
+			"KMT2A-ELL" -> "ELL-TCEB3"
+	}
+	subgraph "CTAGE5-GEMIN2" {
+		"CTAGE5-GEMIN2" [label="CTAGE5-GEMIN2" fillcolor=red style=filled]
+		"GEMIN2-WDR77" [label="GEMIN2-WDR77" fillcolor=gray shape=box style=filled]
+			"CTAGE5-GEMIN2" -> "GEMIN2-WDR77"
+	}
+	subgraph "KMT2A-MLLT10" {
+		"KMT2A-MLLT10" [label="KMT2A-MLLT10" fillcolor=red style=filled]
+		"MLLT10-TCF4" [label="MLLT10-TCF4" fillcolor=gray shape=box style=filled]
+			"KMT2A-MLLT10" -> "MLLT10-TCF4"
+	}
+	subgraph "LIFR-PLAG1" {
+		"LIFR-PLAG1" [label="LIFR-PLAG1" fillcolor=red style=filled]
+		"LIFR-TYK2" [label="LIFR-TYK2" fillcolor=gray shape=box style=filled]
+			"LIFR-PLAG1" -> "LIFR-TYK2"
+	}
+	subgraph "GATM-BRAF" {
+		"GATM-BRAF" [label="GATM-BRAF" fillcolor=red style=filled]
+		"GATM-GATM" [label="GATM-GATM" fillcolor=gray shape=box style=filled]
+			"GATM-BRAF" -> "GATM-GATM"
+	}
+	subgraph "HERPUD1-BRAF" {
+		"HERPUD1-BRAF" [label="HERPUD1-BRAF" fillcolor=red style=filled]
+		"HERPUD1-VCP" [label="HERPUD1-VCP" fillcolor=gray shape=box style=filled]
+			"HERPUD1-BRAF" -> "HERPUD1-VCP"
+	}
+	subgraph "NOTCH1-GABBR2" {
+		"NOTCH1-GABBR2" [label="NOTCH1-GABBR2" fillcolor=red style=filled]
+		"GABBR2-NPY" [label="GABBR2-NPY" fillcolor=gray shape=box style=filled]
+			"NOTCH1-GABBR2" -> "GABBR2-NPY"
+	}
+	subgraph "HEY1-NCOA2" {
+		"HEY1-NCOA2" [label="HEY1-NCOA2" fillcolor=red style=filled]
+		"HEY1-WDTC1" [label="HEY1-WDTC1" fillcolor=gray shape=box style=filled]
+			"HEY1-NCOA2" -> "HEY1-WDTC1"
+		"NCOA2-YAP1" [label="NCOA2-YAP1" fillcolor=gray shape=box style=filled]
+			"HEY1-NCOA2" -> "NCOA2-YAP1"
+	}
+	subgraph "KMT2A-MLLT4" {
+		"KMT2A-MLLT4" [label="KMT2A-MLLT4" fillcolor=red style=filled]
+		"MLLT4-YES1" [label="MLLT4-YES1" fillcolor=gray shape=box style=filled]
+			"KMT2A-MLLT4" -> "MLLT4-YES1"
+	}
+	subgraph "VCL-ALK" {
+		"VCL-ALK" [label="VCL-ALK" fillcolor=red style=filled]
+		"VCL-YES1" [label="VCL-YES1" fillcolor=gray shape=box style=filled]
+			"VCL-ALK" -> "VCL-YES1"
+	}
+	subgraph "KMT2A-SORBS2" {
+		"KMT2A-SORBS2" [label="KMT2A-SORBS2" fillcolor=red style=filled]
+		"SORBS2-VCL" [label="SORBS2-VCL" fillcolor=gray shape=box style=filled]
+			"KMT2A-SORBS2" -> "SORBS2-VCL"
+	}
+	subgraph "SQSTM1-ALK" {
+		"SQSTM1-ALK" [label="SQSTM1-ALK" fillcolor=red style=filled]
+		"SQSTM1-WDFY3" [label="SQSTM1-WDFY3" fillcolor=gray shape=box style=filled]
+			"SQSTM1-ALK" -> "SQSTM1-WDFY3"
+	}
+	subgraph "MYO5A-ROS1" {
+		"MYO5A-ROS1" [label="MYO5A-ROS1" fillcolor=red style=filled]
+		"MYO5A-YWHAZ" [label="MYO5A-YWHAZ" fillcolor=gray shape=box style=filled]
+			"MYO5A-ROS1" -> "MYO5A-YWHAZ"
+	}
+	subgraph "PAX3-NCOA1" {
+		"PAX3-NCOA1" [label="PAX3-NCOA1" fillcolor=red style=filled]
+		"NCOA1-YWHAH" [label="NCOA1-YWHAH" fillcolor=gray shape=box style=filled]
+			"PAX3-NCOA1" -> "NCOA1-YWHAH"
+	}
+	subgraph "NFATC2-EWSR1" {
+		"NFATC2-EWSR1" [label="NFATC2-EWSR1" fillcolor=red style=filled]
+		"NFATC2-YWHAQ" [label="NFATC2-YWHAQ" fillcolor=gray shape=box style=filled]
+			"NFATC2-EWSR1" -> "NFATC2-YWHAQ"
+	}
+	subgraph "KMT2A-AFF1" {
+		"KMT2A-AFF1" [label="KMT2A-AFF1" fillcolor=red style=filled]
+		"AFF1-NSD1" [label="AFF1-NSD1" fillcolor=gray shape=box style=filled]
+			"KMT2A-AFF1" -> "AFF1-NSD1"
+	}
+	subgraph "KMT2A-GPHN" {
+		"KMT2A-GPHN" [label="KMT2A-GPHN" fillcolor=red style=filled]
+		"GPHN-GPHN" [label="GPHN-GPHN" fillcolor=gray shape=box style=filled]
+			"KMT2A-GPHN" -> "GPHN-GPHN"
+	}
+	subgraph "KMT2A-CASC5" {
+		"KMT2A-CASC5" [label="KMT2A-CASC5" fillcolor=red style=filled]
+		"CASC5-ZWILCH" [label="CASC5-ZWILCH" fillcolor=gray shape=box style=filled]
+			"KMT2A-CASC5" -> "CASC5-ZWILCH"
+	}
+	subgraph "ERO1L-FERMT2" {
+		"ERO1L-FERMT2" [label="ERO1L-FERMT2" fillcolor=red style=filled]
+		"FERMT2-ITGB7" [label="FERMT2-ITGB7" fillcolor=gray shape=box style=filled]
+			"ERO1L-FERMT2" -> "FERMT2-ITGB7"
+	}
+	subgraph "EWSR1-WT1" {
+		"EWSR1-WT1" [label="EWSR1-WT1" fillcolor=red style=filled]
+		"WT1-WT1" [label="WT1-WT1" fillcolor=gray shape=box style=filled]
+			"EWSR1-WT1" -> "WT1-WT1"
+	}
+	subgraph "BRD4-C15orf55" {
+		"BRD4-C15orf55" [label="BRD4-C15orf55" fillcolor=red style=filled]
+		"BRD4-YWHAE" [label="BRD4-YWHAE" fillcolor=gray shape=box style=filled]
+			"BRD4-C15orf55" -> "BRD4-YWHAE"
+	}
+	subgraph "EWSR1-NFATC1" {
+		"EWSR1-NFATC1" [label="EWSR1-NFATC1" fillcolor=red style=filled]
+		"EWSR1-ZNF292" [label="EWSR1-ZNF292" fillcolor=gray shape=box style=filled]
+			"EWSR1-NFATC1" -> "EWSR1-ZNF292"
+		"NFATC1-YWHAQ" [label="NFATC1-YWHAQ" fillcolor=gray shape=box style=filled]
+			"EWSR1-NFATC1" -> "NFATC1-YWHAQ"
+	}
+	subgraph "KMT2A-EPS15" {
+		"KMT2A-EPS15" [label="KMT2A-EPS15" fillcolor=red style=filled]
+		"EPS15-UBC" [label="EPS15-UBC" fillcolor=gray shape=box style=filled]
+			"KMT2A-EPS15" -> "EPS15-UBC"
+	}
+	subgraph "KMT2A-ABI2" {
+		"KMT2A-ABI2" [label="KMT2A-ABI2" fillcolor=red style=filled]
+		"ABI2-WASL" [label="ABI2-WASL" fillcolor=gray shape=box style=filled]
+			"KMT2A-ABI2" -> "ABI2-WASL"
+	}
+	subgraph "ATIC-ALK" {
+		"ATIC-ALK" [label="ATIC-ALK" fillcolor=red style=filled]
+		"ATIC-YWHAE" [label="ATIC-YWHAE" fillcolor=gray shape=box style=filled]
+			"ATIC-ALK" -> "ATIC-YWHAE"
+	}
+	subgraph "EIF3E-RSPO2" {
+		"EIF3E-RSPO2" [label="EIF3E-RSPO2" fillcolor=red style=filled]
+		"EIF3E-SMURF2" [label="EIF3E-SMURF2" fillcolor=gray shape=box style=filled]
+			"EIF3E-RSPO2" -> "EIF3E-SMURF2"
+	}
+	subgraph "FGFR3-BAIAP2L1" {
+		"FGFR3-BAIAP2L1" [label="FGFR3-BAIAP2L1" fillcolor=red style=filled]
+		"BAIAP2L1-PRKAB2" [label="BAIAP2L1-PRKAB2" fillcolor=gray shape=box style=filled]
+			"FGFR3-BAIAP2L1" -> "BAIAP2L1-PRKAB2"
+	}
+	subgraph "RBM14-PACS1" {
+		"RBM14-PACS1" [label="RBM14-PACS1" fillcolor=red style=filled]
+		"RBM14-XRCC5" [label="RBM14-XRCC5" fillcolor=gray shape=box style=filled]
+			"RBM14-PACS1" -> "RBM14-XRCC5"
+	}
+	subgraph "SLC45A3-ETV1" {
+		"SLC45A3-ETV1" [label="SLC45A3-ETV1" fillcolor=red style=filled]
+		"ETV1-UBA52" [label="ETV1-UBA52" fillcolor=gray shape=box style=filled]
+			"SLC45A3-ETV1" -> "ETV1-UBA52"
+	}
+	subgraph "CANT1-ETV4" {
+		"CANT1-ETV4" [label="CANT1-ETV4" fillcolor=red style=filled]
+		"CANT1-UBD" [label="CANT1-UBD" fillcolor=gray shape=box style=filled]
+			"CANT1-ETV4" -> "CANT1-UBD"
+	}
+	subgraph "CLIP1-ROS1" {
+		"CLIP1-ROS1" [label="CLIP1-ROS1" fillcolor=red style=filled]
+		"CLIP1-ZWILCH" [label="CLIP1-ZWILCH" fillcolor=gray shape=box style=filled]
+			"CLIP1-ROS1" -> "CLIP1-ZWILCH"
+	}
+	subgraph "PAX8-PPARG" {
+		"PAX8-PPARG" [label="PAX8-PPARG" fillcolor=red style=filled]
+		"PAX8-TP53" [label="PAX8-TP53" fillcolor=gray shape=box style=filled]
+			"PAX8-PPARG" -> "PAX8-TP53"
+		"PPARG-YAP1" [label="PPARG-YAP1" fillcolor=gray shape=box style=filled]
+			"PAX8-PPARG" -> "PPARG-YAP1"
+	}
+	subgraph "EPC1-PHF1" {
+		"EPC1-PHF1" [label="EPC1-PHF1" fillcolor=red style=filled]
+		"PHF1-THAP1" [label="PHF1-THAP1" fillcolor=gray shape=box style=filled]
+			"EPC1-PHF1" -> "PHF1-THAP1"
+	}
+	subgraph "TAF15-NR4A3" {
+		"TAF15-NR4A3" [label="TAF15-NR4A3" fillcolor=red style=filled]
+		"TAF15-TAF15" [label="TAF15-TAF15" fillcolor=gray shape=box style=filled]
+			"TAF15-NR4A3" -> "TAF15-TAF15"
+	}
+	subgraph "LMNA-NTRK1" {
+		"LMNA-NTRK1" [label="LMNA-NTRK1" fillcolor=red style=filled]
+		"LMNA-TINF2" [label="LMNA-TINF2" fillcolor=gray shape=box style=filled]
+			"LMNA-NTRK1" -> "LMNA-TINF2"
+		"NTRK1-YWHAB" [label="NTRK1-YWHAB" fillcolor=gray shape=box style=filled]
+			"LMNA-NTRK1" -> "NTRK1-YWHAB"
+	}
+	subgraph "BRAF-AKAP9" {
+		"BRAF-AKAP9" [label="BRAF-AKAP9" fillcolor=red style=filled]
+		"BRAF-YWHAZ" [label="BRAF-YWHAZ" fillcolor=gray shape=box style=filled]
+			"BRAF-AKAP9" -> "BRAF-YWHAZ"
+	}
+	subgraph "NF1-ASIC2" {
+		"NF1-ASIC2" [label="NF1-ASIC2" fillcolor=red style=filled]
+		"NF1-YWHAZ" [label="NF1-YWHAZ" fillcolor=gray shape=box style=filled]
+			"NF1-ASIC2" -> "NF1-YWHAZ"
+	}
+	subgraph "HACL1-RAF1" {
+		"HACL1-RAF1" [label="HACL1-RAF1" fillcolor=red style=filled]
+		"RAF1-YWHAZ" [label="RAF1-YWHAZ" color=cyan fillcolor=yellow shape=box style=filled]
+			"HACL1-RAF1" -> "RAF1-YWHAZ"
+	}
+	subgraph "SLC45A3-ELK4" {
+		"SLC45A3-ELK4" [label="SLC45A3-ELK4" fillcolor=red style=filled]
+		"ELK4-TBP" [label="ELK4-TBP" fillcolor=gray shape=box style=filled]
+			"SLC45A3-ELK4" -> "ELK4-TBP"
+	}
+	subgraph "ARID1A-MAST2" {
+		"ARID1A-MAST2" [label="ARID1A-MAST2" fillcolor=red style=filled]
+		"ARID1A-YWHAH" [label="ARID1A-YWHAH" fillcolor=gray shape=box style=filled]
+			"ARID1A-MAST2" -> "ARID1A-YWHAH"
+		"MAST2-TTN" [label="MAST2-TTN" fillcolor=gray shape=box style=filled]
+			"ARID1A-MAST2" -> "MAST2-TTN"
+	}
+	subgraph "TCF12-NR4A3" {
+		"TCF12-NR4A3" [label="TCF12-NR4A3" fillcolor=red style=filled]
+		"TCF12-ZFHX3" [label="TCF12-ZFHX3" fillcolor=gray shape=box style=filled]
+			"TCF12-NR4A3" -> "TCF12-ZFHX3"
+	}
+	subgraph "CIC-FOXO4" {
+		"CIC-FOXO4" [label="CIC-FOXO4" fillcolor=red style=filled]
+		"CIC-PLK1" [label="CIC-PLK1" fillcolor=gray shape=box style=filled]
+			"CIC-FOXO4" -> "CIC-PLK1"
+		"FOXO4-YWHAZ" [label="FOXO4-YWHAZ" fillcolor=gray shape=box style=filled]
+			"CIC-FOXO4" -> "FOXO4-YWHAZ"
+	}
+	subgraph "PTPRK-RSPO3" {
+		"PTPRK-RSPO3" [label="PTPRK-RSPO3" fillcolor=red style=filled]
+		"PTPRK-TEK" [label="PTPRK-TEK" color=cyan fillcolor=yellow shape=box style=filled]
+			"PTPRK-RSPO3" -> "PTPRK-TEK"
+	}
+	subgraph "KMT2A-SARNP" {
+		"KMT2A-SARNP" [label="KMT2A-SARNP" fillcolor=red style=filled]
+		"SARNP-WDR61" [label="SARNP-WDR61" fillcolor=gray shape=box style=filled]
+			"KMT2A-SARNP" -> "SARNP-WDR61"
+	}
+	subgraph "COL1A1-PDGFB" {
+		"COL1A1-PDGFB" [label="COL1A1-PDGFB" fillcolor=red style=filled]
+		"PDGFB-YES1" [label="PDGFB-YES1" fillcolor=gray shape=box style=filled]
+			"COL1A1-PDGFB" -> "PDGFB-YES1"
+	}
+	subgraph "PLA2R1-RBMS1" {
+		"PLA2R1-RBMS1" [label="PLA2R1-RBMS1" fillcolor=red style=filled]
+		"RBMS1-RBMS1" [label="RBMS1-RBMS1" fillcolor=gray shape=box style=filled]
+			"PLA2R1-RBMS1" -> "RBMS1-RBMS1"
+	}
+	subgraph "CD74-NRG1" {
+		"CD74-NRG1" [label="CD74-NRG1" fillcolor=red style=filled]
+		"NRG1-WWP1" [label="NRG1-WWP1" fillcolor=gray shape=box style=filled]
+			"CD74-NRG1" -> "NRG1-WWP1"
+		"CD74-ZAP70" [label="CD74-ZAP70" fillcolor=gray shape=box style=filled]
+			"CD74-NRG1" -> "CD74-ZAP70"
+	}
+	subgraph "SLC26A6-PRKAR2A" {
+		"SLC26A6-PRKAR2A" [label="SLC26A6-PRKAR2A" fillcolor=red style=filled]
+		"PRKAR2A-YWHAZ" [label="PRKAR2A-YWHAZ" fillcolor=gray shape=box style=filled]
+			"SLC26A6-PRKAR2A" -> "PRKAR2A-YWHAZ"
+	}
+	subgraph "KMT2A-MLLT3" {
+		"KMT2A-MLLT3" [label="KMT2A-MLLT3" fillcolor=red style=filled]
+		"MLLT3-RNF2" [label="MLLT3-RNF2" fillcolor=gray shape=box style=filled]
+			"KMT2A-MLLT3" -> "MLLT3-RNF2"
+	}
+	subgraph "FGFR1-TACC1" {
+		"FGFR1-TACC1" [label="FGFR1-TACC1" fillcolor=red style=filled]
+		"FGFR1-VEGFC" [label="FGFR1-VEGFC" fillcolor=gray shape=box style=filled]
+			"FGFR1-TACC1" -> "FGFR1-VEGFC"
+	}
+	subgraph "KMT2A-EP300" {
+		"KMT2A-EP300" [label="KMT2A-EP300" fillcolor=red style=filled]
+		"EP300-ZRANB2" [label="EP300-ZRANB2" fillcolor=gray shape=box style=filled]
+			"KMT2A-EP300" -> "EP300-ZRANB2"
+	}
+	subgraph "KMT2A-FOXO3" {
+		"KMT2A-FOXO3" [label="KMT2A-FOXO3" fillcolor=red style=filled]
+		"FOXO3-YWHAZ" [label="FOXO3-YWHAZ" fillcolor=gray shape=box style=filled]
+			"KMT2A-FOXO3" -> "FOXO3-YWHAZ"
+	}
+	subgraph "DCTN1-ALK" {
+		"DCTN1-ALK" [label="DCTN1-ALK" fillcolor=red style=filled]
+		"DCTN1-YWHAG" [label="DCTN1-YWHAG" fillcolor=gray shape=box style=filled]
+			"DCTN1-ALK" -> "DCTN1-YWHAG"
+	}
+	subgraph "BRD3-C15orf55" {
+		"BRD3-C15orf55" [label="BRD3-C15orf55" fillcolor=red style=filled]
+		"BRD3-MYC" [label="BRD3-MYC" fillcolor=gray shape=box style=filled]
+			"BRD3-C15orf55" -> "BRD3-MYC"
+	}
+	subgraph "IL6R-ATP8B2" {
+		"IL6R-ATP8B2" [label="IL6R-ATP8B2" fillcolor=red style=filled]
+		"IL6R-VAV1" [label="IL6R-VAV1" fillcolor=gray shape=box style=filled]
+			"IL6R-ATP8B2" -> "IL6R-VAV1"
+	}
+	subgraph "PLXND1-TMCC1" {
+		"PLXND1-TMCC1" [label="PLXND1-TMCC1" fillcolor=red style=filled]
+		"PLXND1-TAL1" [label="PLXND1-TAL1" fillcolor=gray shape=box style=filled]
+			"PLXND1-TMCC1" -> "PLXND1-TAL1"
+	}
+	subgraph "RET-TRIM33" {
+		"RET-TRIM33" [label="RET-TRIM33" fillcolor=red style=filled]
+		"RET-YES1" [label="RET-YES1" fillcolor=gray shape=box style=filled]
+			"RET-TRIM33" -> "RET-YES1"
+		"TRIM33-ZNF484" [label="TRIM33-ZNF484" fillcolor=gray shape=box style=filled]
+			"RET-TRIM33" -> "TRIM33-ZNF484"
+	}
+	subgraph "HIP1-ALK" {
+		"HIP1-ALK" [label="HIP1-ALK" fillcolor=red style=filled]
+		"HIP1-OGT" [label="HIP1-OGT" fillcolor=gray shape=box style=filled]
+			"HIP1-ALK" -> "HIP1-OGT"
+		"ALK-SHC1" [label="ALK-SHC1" fillcolor=gray shape=box style=filled]
+			"HIP1-ALK" -> "ALK-SHC1"
+	}
+	subgraph "RANBP2-ALK" {
+		"RANBP2-ALK" [label="RANBP2-ALK" fillcolor=red style=filled]
+		"RANBP2-ZWILCH" [label="RANBP2-ZWILCH" fillcolor=gray shape=box style=filled]
+			"RANBP2-ALK" -> "RANBP2-ZWILCH"
+	}
+	subgraph "NPM1-ALK" {
+		"NPM1-ALK" [label="NPM1-ALK" fillcolor=red style=filled]
+		"NPM1-UBC" [label="NPM1-UBC" fillcolor=gray shape=box style=filled]
+			"NPM1-ALK" -> "NPM1-UBC"
+	}
+	subgraph "SFPQ-TFE3" {
+		"SFPQ-TFE3" [label="SFPQ-TFE3" fillcolor=red style=filled]
+		"SFPQ-YWHAQ" [label="SFPQ-YWHAQ" fillcolor=gray shape=box style=filled]
+			"SFPQ-TFE3" -> "SFPQ-YWHAQ"
+	}
+	subgraph "HMGA2-EBF1" {
+		"HMGA2-EBF1" [label="HMGA2-EBF1" fillcolor=red style=filled]
+		"EBF1-ZNF423" [label="EBF1-ZNF423" fillcolor=gray shape=box style=filled]
+			"HMGA2-EBF1" -> "EBF1-ZNF423"
+	}
+	subgraph "KMT2A-SEPT6" {
+		"KMT2A-SEPT6" [label="KMT2A-SEPT6" fillcolor=red style=filled]
+		"SEPT6-STAT2" [label="SEPT6-STAT2" fillcolor=gray shape=box style=filled]
+			"KMT2A-SEPT6" -> "SEPT6-STAT2"
+	}
+	subgraph "JAK2-PAX5" {
+		"JAK2-PAX5" [label="JAK2-PAX5" fillcolor=red style=filled]
+		"PAX5-ZBTB32" [label="PAX5-ZBTB32" fillcolor=gray shape=box style=filled]
+			"JAK2-PAX5" -> "PAX5-ZBTB32"
+		"JAK2-YWHAZ" [label="JAK2-YWHAZ" fillcolor=gray shape=box style=filled]
+			"JAK2-PAX5" -> "JAK2-YWHAZ"
+	}
+	subgraph "PAX3-NCOA2" {
+		"PAX3-NCOA2" [label="PAX3-NCOA2" fillcolor=red style=filled]
+		"PAX3-YAP1" [label="PAX3-YAP1" fillcolor=gray shape=box style=filled]
+			"PAX3-NCOA2" -> "PAX3-YAP1"
+	}
+	subgraph "MBTD1-CXorf67" {
+		"MBTD1-CXorf67" [label="MBTD1-CXorf67" fillcolor=red style=filled]
+		"MBTD1-WDR5" [label="MBTD1-WDR5" fillcolor=gray shape=box style=filled]
+			"MBTD1-CXorf67" -> "MBTD1-WDR5"
+	}
+	subgraph "TCEA1-PLAG1" {
+		"TCEA1-PLAG1" [label="TCEA1-PLAG1" fillcolor=red style=filled]
+		"TCEA1-WDR61" [label="TCEA1-WDR61" fillcolor=gray shape=box style=filled]
+			"TCEA1-PLAG1" -> "TCEA1-WDR61"
+	}
+	subgraph "FGFR3-TACC3" {
+		"FGFR3-TACC3" [label="FGFR3-TACC3" fillcolor=red style=filled]
+		"FGFR3-ZBTB7A" [label="FGFR3-ZBTB7A" fillcolor=gray shape=box style=filled]
+			"FGFR3-TACC3" -> "FGFR3-ZBTB7A"
+	}
+	subgraph "EIF3K-CYP39A1" {
+		"EIF3K-CYP39A1" [label="EIF3K-CYP39A1" fillcolor=red style=filled]
+		"EIF3K-YBX1" [label="EIF3K-YBX1" fillcolor=gray shape=box style=filled]
+			"EIF3K-CYP39A1" -> "EIF3K-YBX1"
+	}
+	subgraph "KMT2A-AFF4" {
+		"KMT2A-AFF4" [label="KMT2A-AFF4" fillcolor=red style=filled]
+		"AFF4-USF1" [label="AFF4-USF1" fillcolor=gray shape=box style=filled]
+			"KMT2A-AFF4" -> "AFF4-USF1"
+	}
+	subgraph "FUS-DDIT3" {
+		"FUS-DDIT3" [label="FUS-DDIT3" fillcolor=red style=filled]
+		"FUS-YBX1" [label="FUS-YBX1" fillcolor=gray shape=box style=filled]
+			"FUS-DDIT3" -> "FUS-YBX1"
+	}
+	subgraph "TADA2A-MAST1" {
+		"TADA2A-MAST1" [label="TADA2A-MAST1" fillcolor=red style=filled]
+		"MAST1-SNTB2" [label="MAST1-SNTB2" fillcolor=gray shape=box style=filled]
+			"TADA2A-MAST1" -> "MAST1-SNTB2"
+		"TADA2A-ZZZ3" [label="TADA2A-ZZZ3" fillcolor=gray shape=box style=filled]
+			"TADA2A-MAST1" -> "TADA2A-ZZZ3"
+	}
+	subgraph "ACTB-GLI1" {
+		"ACTB-GLI1" [label="ACTB-GLI1" fillcolor=red style=filled]
+		"ACTB-YWHAZ" [label="ACTB-YWHAZ" fillcolor=gray shape=box style=filled]
+			"ACTB-GLI1" -> "ACTB-YWHAZ"
+		"GLI1-ZIC3" [label="GLI1-ZIC3" fillcolor=gray shape=box style=filled]
+			"ACTB-GLI1" -> "GLI1-ZIC3"
+	}
+	subgraph "EZR-ROS1" {
+		"EZR-ROS1" [label="EZR-ROS1" fillcolor=red style=filled]
+		"EZR-VCAM1" [label="EZR-VCAM1" fillcolor=gray shape=box style=filled]
+			"EZR-ROS1" -> "EZR-VCAM1"
+	}
+	subgraph "AGPAT5-MCPH1" {
+		"AGPAT5-MCPH1" [label="AGPAT5-MCPH1" fillcolor=red style=filled]
+		"MCPH1-SMC4" [label="MCPH1-SMC4" fillcolor=gray shape=box style=filled]
+			"AGPAT5-MCPH1" -> "MCPH1-SMC4"
+	}
+	subgraph "BCR-ABL1" {
+		"BCR-ABL1" [label="BCR-ABL1" fillcolor=red style=filled]
+		"ABL1-ZFP36L2" [label="ABL1-ZFP36L2" fillcolor=gray shape=box style=filled]
+			"BCR-ABL1" -> "ABL1-ZFP36L2"
+		"BCR-YWHAZ" [label="BCR-YWHAZ" fillcolor=gray shape=box style=filled]
+			"BCR-ABL1" -> "BCR-YWHAZ"
+	}
+	subgraph "SEC31A-JAK2" {
+		"SEC31A-JAK2" [label="SEC31A-JAK2" fillcolor=red style=filled]
+		"SEC31A-SEH1L" [label="SEC31A-SEH1L" fillcolor=gray shape=box style=filled]
+			"SEC31A-JAK2" -> "SEC31A-SEH1L"
+	}
+	subgraph "FOXO1-PAX3" {
+		"FOXO1-PAX3" [label="FOXO1-PAX3" fillcolor=red style=filled]
+		"FOXO1-YWHAZ" [label="FOXO1-YWHAZ" fillcolor=gray shape=box style=filled]
+			"FOXO1-PAX3" -> "FOXO1-YWHAZ"
+	}
+	subgraph "EWSR1-FLI1" {
+		"EWSR1-FLI1" [label="EWSR1-FLI1" fillcolor=red style=filled]
+		"FLI1-UPP1" [label="FLI1-UPP1" fillcolor=gray shape=box style=filled]
+			"EWSR1-FLI1" -> "FLI1-UPP1"
+	}
+	subgraph "FUS-FEV" {
+		"FUS-FEV" [label="FUS-FEV" fillcolor=red style=filled]
+		"FEV-SOX2" [label="FEV-SOX2" fillcolor=gray shape=box style=filled]
+			"FUS-FEV" -> "FEV-SOX2"
+	}
+	subgraph "MAPRE1-KMT2A" {
+		"MAPRE1-KMT2A" [label="MAPRE1-KMT2A" fillcolor=red style=filled]
+		"MAPRE1-ZWILCH" [label="MAPRE1-ZWILCH" fillcolor=gray shape=box style=filled]
+			"MAPRE1-KMT2A" -> "MAPRE1-ZWILCH"
+	}
+	subgraph "SND1-BRAF" {
+		"SND1-BRAF" [label="SND1-BRAF" fillcolor=red style=filled]
+		"SND1-STAT6" [label="SND1-STAT6" fillcolor=gray shape=box style=filled]
+			"SND1-BRAF" -> "SND1-STAT6"
+	}
+	subgraph "GNAI1-BRAF" {
+		"GNAI1-BRAF" [label="GNAI1-BRAF" fillcolor=red style=filled]
+		"GNAI1-YES1" [label="GNAI1-YES1" fillcolor=gray shape=box style=filled]
+			"GNAI1-BRAF" -> "GNAI1-YES1"
+	}
+	subgraph "SEC16A-NOTCH1" {
+		"SEC16A-NOTCH1" [label="SEC16A-NOTCH1" fillcolor=red style=filled]
+		"NOTCH1-YY1" [label="NOTCH1-YY1" fillcolor=gray shape=box style=filled]
+			"SEC16A-NOTCH1" -> "NOTCH1-YY1"
+	}
+	subgraph "EWSR1-PATZ1" {
+		"EWSR1-PATZ1" [label="EWSR1-PATZ1" fillcolor=red style=filled]
+		"PATZ1-SOX2" [label="PATZ1-SOX2" fillcolor=gray shape=box style=filled]
+			"EWSR1-PATZ1" -> "PATZ1-SOX2"
+	}
+	subgraph "SDC4-ROS1" {
+		"SDC4-ROS1" [label="SDC4-ROS1" fillcolor=red style=filled]
+		"ROS1-ROS1" [label="ROS1-ROS1" fillcolor=gray shape=box style=filled]
+			"SDC4-ROS1" -> "ROS1-ROS1"
+		"SDC4-VTN" [label="SDC4-VTN" fillcolor=gray shape=box style=filled]
+			"SDC4-ROS1" -> "SDC4-VTN"
+	}
+	subgraph "HNRNPA2B1-ETV1" {
+		"HNRNPA2B1-ETV1" [label="HNRNPA2B1-ETV1" fillcolor=red style=filled]
+		"HNRNPA2B1-YBX1" [label="HNRNPA2B1-YBX1" fillcolor=gray shape=box style=filled]
+			"HNRNPA2B1-ETV1" -> "HNRNPA2B1-YBX1"
+	}
+	subgraph "SSH2-SUZ12" {
+		"SSH2-SUZ12" [label="SSH2-SUZ12" fillcolor=red style=filled]
+		"SSH2-SSH2" [label="SSH2-SSH2" fillcolor=gray shape=box style=filled]
+			"SSH2-SUZ12" -> "SSH2-SSH2"
+	}
+	subgraph "ACTN4-KMT2A" {
+		"ACTN4-KMT2A" [label="ACTN4-KMT2A" fillcolor=red style=filled]
+		"ACTN4-VCP" [label="ACTN4-VCP" fillcolor=gray shape=box style=filled]
+			"ACTN4-KMT2A" -> "ACTN4-VCP"
+	}
+	subgraph "KMT2A-TOP3A" {
+		"KMT2A-TOP3A" [label="KMT2A-TOP3A" fillcolor=red style=filled]
+		"TOP3A-UBE2T" [label="TOP3A-UBE2T" fillcolor=gray shape=box style=filled]
+			"KMT2A-TOP3A" -> "TOP3A-UBE2T"
+	}
+	subgraph "HMGA2-ALDH2" {
+		"HMGA2-ALDH2" [label="HMGA2-ALDH2" fillcolor=red style=filled]
+		"ALDH2-UNC119" [label="ALDH2-UNC119" fillcolor=gray shape=box style=filled]
+			"HMGA2-ALDH2" -> "ALDH2-UNC119"
+	}
+	subgraph "TP53-NTRK1" {
+		"TP53-NTRK1" [label="TP53-NTRK1" fillcolor=red style=filled]
+		"TP53-ZNF292" [label="TP53-ZNF292" fillcolor=gray shape=box style=filled]
+			"TP53-NTRK1" -> "TP53-ZNF292"
+	}
+	subgraph "QKI-NTRK2" {
+		"QKI-NTRK2" [label="QKI-NTRK2" fillcolor=red style=filled]
+		"QKI-U2AF2" [label="QKI-U2AF2" fillcolor=gray shape=box style=filled]
+			"QKI-NTRK2" -> "QKI-U2AF2"
+	}
+	subgraph "KMT2A-CBL" {
+		"KMT2A-CBL" [label="KMT2A-CBL" fillcolor=red style=filled]
+		"CBL-ZAP70" [label="CBL-ZAP70" color=cyan fillcolor=yellow shape=box style=filled]
+			"KMT2A-CBL" -> "CBL-ZAP70"
+	}
+	subgraph "PLAG1-CTNNB1" {
+		"PLAG1-CTNNB1" [label="PLAG1-CTNNB1" fillcolor=red style=filled]
+		"CTNNB1-ZBTB33" [label="CTNNB1-ZBTB33" fillcolor=gray shape=box style=filled]
+			"PLAG1-CTNNB1" -> "CTNNB1-ZBTB33"
+	}
+	subgraph "KLC1-ALK" {
+		"KLC1-ALK" [label="KLC1-ALK" fillcolor=red style=filled]
+		"KLC1-YWHAE" [label="KLC1-YWHAE" fillcolor=gray shape=box style=filled]
+			"KLC1-ALK" -> "KLC1-YWHAE"
+	}
+	subgraph "TCF3-PBX1" {
+		"TCF3-PBX1" [label="TCF3-PBX1" fillcolor=red style=filled]
+		"PBX1-ZIC3" [label="PBX1-ZIC3" fillcolor=gray shape=box style=filled]
+			"TCF3-PBX1" -> "PBX1-ZIC3"
+		"TCF3-TWIST1" [label="TCF3-TWIST1" color=cyan fillcolor=yellow shape=box style=filled]
+			"TCF3-PBX1" -> "TCF3-TWIST1"
+	}
+	subgraph "KIF5B-ALK" {
+		"KIF5B-ALK" [label="KIF5B-ALK" fillcolor=red style=filled]
+		"KIF5B-YWHAB" [label="KIF5B-YWHAB" fillcolor=gray shape=box style=filled]
+			"KIF5B-ALK" -> "KIF5B-YWHAB"
+	}
+	subgraph "MBOAT2-PRKCE" {
+		"MBOAT2-PRKCE" [label="MBOAT2-PRKCE" fillcolor=red style=filled]
+		"PRKCE-YWHAZ" [label="PRKCE-YWHAZ" color=cyan fillcolor=yellow shape=box style=filled]
+			"MBOAT2-PRKCE" -> "PRKCE-YWHAZ"
+	}
+	subgraph "YY1-EWSR1" {
+		"YY1-EWSR1" [label="YY1-EWSR1" fillcolor=red style=filled]
+		"YY1-ZNF484" [label="YY1-ZNF484" fillcolor=gray shape=box style=filled]
+			"YY1-EWSR1" -> "YY1-ZNF484"
+	}
+	subgraph "CLTC-TFE3" {
+		"CLTC-TFE3" [label="CLTC-TFE3" fillcolor=red style=filled]
+		"CLTC-YWHAZ" [label="CLTC-YWHAZ" fillcolor=gray shape=box style=filled]
+			"CLTC-TFE3" -> "CLTC-YWHAZ"
+	}
+	subgraph "DDX5-ETV4" {
+		"DDX5-ETV4" [label="DDX5-ETV4" fillcolor=red style=filled]
+		"ETV4-YY1" [label="ETV4-YY1" fillcolor=gray shape=box style=filled]
+			"DDX5-ETV4" -> "ETV4-YY1"
+		"DDX5-YY1" [label="DDX5-YY1" fillcolor=gray shape=box style=filled]
+			"DDX5-ETV4" -> "DDX5-YY1"
+	}
+	subgraph "NONO-TFE3" {
+		"NONO-TFE3" [label="NONO-TFE3" fillcolor=red style=filled]
+		"NONO-YWHAQ" [label="NONO-YWHAQ" fillcolor=gray shape=box style=filled]
+			"NONO-TFE3" -> "NONO-YWHAQ"
+	}
+	subgraph "COL1A1-USP6" {
+		"COL1A1-USP6" [label="COL1A1-USP6" fillcolor=red style=filled]
+		"COL1A1-VWF" [label="COL1A1-VWF" fillcolor=gray shape=box style=filled]
+			"COL1A1-USP6" -> "COL1A1-VWF"
+	}
+	subgraph "VTI1A-TCF7L2" {
+		"VTI1A-TCF7L2" [label="VTI1A-TCF7L2" fillcolor=red style=filled]
+		"TCF7L2-ZNF451" [label="TCF7L2-ZNF451" fillcolor=gray shape=box style=filled]
+			"VTI1A-TCF7L2" -> "TCF7L2-ZNF451"
+	}
+	subgraph "FN1-ALK" {
+		"FN1-ALK" [label="FN1-ALK" fillcolor=red style=filled]
+		"FN1-YWHAZ" [label="FN1-YWHAZ" fillcolor=gray shape=box style=filled]
+			"FN1-ALK" -> "FN1-YWHAZ"
+	}
+	subgraph "YWHAE-FAM22B" {
+		"YWHAE-FAM22B" [label="YWHAE-FAM22B" fillcolor=red style=filled]
+		"YWHAE-YWHAZ" [label="YWHAE-YWHAZ" color=cyan fillcolor=yellow shape=box style=filled]
+			"YWHAE-FAM22B" -> "YWHAE-YWHAZ"
+	}
+	subgraph "NTN1-ACLY" {
+		"NTN1-ACLY" [label="NTN1-ACLY" fillcolor=red style=filled]
+		"ACLY-SREBF1" [label="ACLY-SREBF1" fillcolor=gray shape=box style=filled]
+			"NTN1-ACLY" -> "ACLY-SREBF1"
+		"NTN1-YES1" [label="NTN1-YES1" fillcolor=gray shape=box style=filled]
+			"NTN1-ACLY" -> "NTN1-YES1"
+	}
+	subgraph "HMGA2-WIF1" {
+		"HMGA2-WIF1" [label="HMGA2-WIF1" fillcolor=red style=filled]
+		"WIF1-WNT7A" [label="WIF1-WNT7A" fillcolor=gray shape=box style=filled]
+			"HMGA2-WIF1" -> "WIF1-WNT7A"
+	}
+	subgraph "HN1-USH1G" {
+		"HN1-USH1G" [label="HN1-USH1G" fillcolor=red style=filled]
+		"USH1G-USH1G" [label="USH1G-USH1G" color=cyan fillcolor=yellow shape=box style=filled]
+			"HN1-USH1G" -> "USH1G-USH1G"
+	}
+	subgraph "SLC45A3-ETV5" {
+		"SLC45A3-ETV5" [label="SLC45A3-ETV5" fillcolor=red style=filled]
+		"ETV5-TAF1" [label="ETV5-TAF1" fillcolor=gray shape=box style=filled]
+			"SLC45A3-ETV5" -> "ETV5-TAF1"
+	}
+	subgraph "ETV6-NTRK3" {
+		"ETV6-NTRK3" [label="ETV6-NTRK3" fillcolor=red style=filled]
+		"ETV6-UBE2I" [label="ETV6-UBE2I" fillcolor=gray shape=box style=filled]
+			"ETV6-NTRK3" -> "ETV6-UBE2I"
+		"NTRK3-UBC" [label="NTRK3-UBC" fillcolor=gray shape=box style=filled]
+			"ETV6-NTRK3" -> "NTRK3-UBC"
+	}
+}
